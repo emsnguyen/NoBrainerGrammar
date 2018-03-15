@@ -38,21 +38,22 @@ and open the template in the editor.
                 <span>Giải thích chi tiết và phân tích chuyên sâu</span>
             </div>
         </main>
-        <footer>
-            <center>
-                <ul>
-                    <li>
-                        <a href="aboutus.html">Về chúng tôi</a>
-                    </li>
-                    <li>
-                        <a href="terms.html">Điều khoản dịch vụ</a>
-                    </li>
-                    <li>
-                        <a href="faqs.html">Các câu hỏi thường gặp</a>
-                    </li>
-                </ul>
-            </center>
-            
-        </footer>
+        <footer class="footer-basic-centered">
+
+			<p class="footer-company-motto">Spare your brain for something more significant</p>
+
+			<p class="footer-links">
+				<a href="#">Trang chủ</a>
+				·
+				<a href="terms.jsp">Điều khoản</a>
+				·
+				<a href="aboutus.jsp">Về chúng tôi</a>
+				·
+				<a href="faq.jsp">Các câu hỏi thường gặp</a>
+			</p>
+
+			<p class="footer-company-name">No Brainer Grammar &copy; 2018</p>
+
+		</footer>
     </body>
 </html>

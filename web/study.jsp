@@ -18,14 +18,15 @@
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     </head>
     <body>
-        <audio controls autoplay loop style="display:none">
+        <audio controls autoplay loop style="display:none" id='player'>
             <source src="audio/MatTroiCuaEmPianoCover-AnCoong-5405112.mp3" type="audio/mpeg">
             Your browser does not support the <code>audio</code> tag.
         </audio>
+        
     <h1 class='elegantshadow'>No-brainer Grammar</h1>
     <center>
         Loại ngữ pháp cần ôn 
-        <select name="categoryID">
+        <select name="categoryID" onchange='submitForm();'>
             <option id="-1">Tất cả</option>
             <c:forEach var='c' items="${cats}">
                 <option value="${c.categoryID}">${c.categoryName}</option>
@@ -33,7 +34,7 @@
         </select>
         <br/>
         Độ khó
-        <select name="level">
+        <select name="level" onchange='submitForm();'>
             <option value="1">Dễ</option>
             <option value="2">Trung bình</option>
             <option value="3">Khó</option>
@@ -42,12 +43,12 @@
         <table class="topnav"> 
             <tr>
                 <td>
-                    <i class="fa fa-volume-up"></i>
-                    <a href="#">Tắt audio</a>
+                    <button onclick="document.getElementById('player').muted=!document.getElementById('player').muted">
+                        Bật/ Tắt nhạc nền</button>
                 </td>
                 <td>
                     <i class="fa fa-star"></i>
-                    <a href="">Xem xếp hạng</a>
+                    <a href="viewrank">Xem xếp hạng</a>
                 </td>
                 <td>
                     <div class="dropdown">
@@ -72,7 +73,7 @@
             </tr>
         </table>
     <center>
-        <form class="form" action="study" method="POST">
+    <form class="form" action="study" method="POST">
         <table>
         <tr>
             <td>
@@ -81,6 +82,7 @@
                 </div>
             </td>
             <td>
+                Thời gian còn lại: 
                 <div id="timer"></div>
                 <div id="notif">Notif</div>
                 <div class="question-answer">
@@ -118,13 +120,12 @@
             </td>
         </tr> 
     </table>
-    <button class='showexplain' style='display: none;'
-        onclick="showHideExplanation();">
-    </button>
-                    <h3 class="explanation" style='display: none;'>
-                        ${answer.explanation}
-                    </h3>
-                    <h1>${answer.explanation}</h1>
+<!--    <button class='showexplain' style='display: none;'
+        onclick="showExplanation();">
+    </button>-->
+    <h4 class="explanation" style='display: none;'>
+        ${answer.explanation}
+    </h4>
     <a href="reportquestion">Báo cáo câu hỏi có vấn đề</a>
     </form><!--end of wrapper class-->
     </center>

@@ -46,10 +46,12 @@ input[type=submit]:hover {
 }
 </style>
 </head>
-<body>
-
-<h3>Thêm câu hỏi mới</h3>
-
+<body onload="showMessage(${added});">
+    <audio controls controls loop autoplay="true">
+        <source src="audio/DuongMotChieuBeat-HuynhTu-4615457.mp3" type="audio/mpeg">
+        Your browser does not support the <code>audio</code> tag.
+    </audio>
+<h2>Thêm câu hỏi mới</h2>
 <div class="container">
   <form action="addquestion" method="POST">
     <label for="category">Loại ngữ pháp</label>
@@ -95,11 +97,7 @@ input[type=submit]:hover {
 
     <input type="submit" value="Lưu lại"/>
   </form>
-    <audio controls style="display:none" controls loop autoplay="true">
-        <source src="audio/DuongMotChieuBeat-HuynhTu-4615457.mp3" type="audio/mpeg">
-        Your browser does not support the <code>audio</code> tag.
-    </audio>
 </div>
-
+<script src="js/addquestion.js" type="text/javascript"></script>
 </body>
 </html>

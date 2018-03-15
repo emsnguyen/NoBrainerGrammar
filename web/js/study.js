@@ -33,8 +33,10 @@ var answerList = answer.querySelectorAll('div');
 var showexplain = document.querySelector('.showexplain');
 function checkCorrectAnswerWhenTimeOut() {
     correctAnswer.style.display = 'block';
-    showexplain.style.display = 'block';
-    showexplain.textContent = 'Xem giải thích nào';
+//    showexplain.style.display = 'block';
+//    showexplain.textContent = 'Xem giải thích nào';
+//    var explanation = document.querySelector('.explanation');
+    explanation.style.display = 'block';
     for (var i = 0; i < answerList.length; i++) {
         question.style.pointerEvents = 'none';
         answerList[i].style.pointerEvents = 'none';
@@ -68,16 +70,10 @@ function checkUserChoice(choice) {
         notif.innerHTML = 'Sai rồi, tiếc quá. Xem giải thích nhé bạn';
     }
 }
-function showHideExplanation() {
-    var explanation = document.querySelector('.explanation');
-    if (showexplain.textContent === 'Ẩn giải thích') {
-        showexplain.textContent = 'Hiện giải thích';
-        explanation.style.display = 'none';
-    } else { //đang hiện
-        showexplain.textContent = 'Ẩn giải thích';
-        explanation.style.display = 'block';
-    }
+var explanation = document.querySelector('.explanation');
+function showExplanation() {
+    explanation.style.display = 'block';
 }
 function submitForm() {
-    document.querySelector('form').submit();
+    document.querySelector('.form').submit(); 
 }

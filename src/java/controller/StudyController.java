@@ -23,6 +23,7 @@ public class StudyController extends BaseAuthenticationController {
     @Override
     protected void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         preProcess(request, response);
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         String cateID = request.getParameter("categoryID");
         String level = request.getParameter("level");
@@ -37,6 +38,9 @@ public class StudyController extends BaseAuthenticationController {
             iCate = 5;
         } else {
             iCate = Integer.parseInt(cateID);
+        }
+        if (prevCateID != iCate || prevLevel != iLevel) {
+            fromIndex = 0;
         }
         QuizDAO quizDB = new QuizDAO();
         Quiz q = quizDB.get(iCate, iLevel, fromIndex);

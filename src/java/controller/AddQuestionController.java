@@ -76,9 +76,10 @@ public class AddQuestionController extends BaseAuthenticationController {
         QuizDAO quizDB = new QuizDAO();
         response.setContentType("text/html;charset=UTF-8");
         if (quizDB.insert(q, a)) {
-            response.getWriter().write("Một câu hỏi mới vừa được thêm vào");
+            request.setAttribute("added", "Một câu hỏi mới vừa được thêm vào");
         } else {
-            response.getWriter().write("Lỗi chưa thêm được câu hỏi");
+            request.setAttribute("added", "Lỗi database rồi admin ơi!");
         }
+        doGet(request, response);
     }
 }
