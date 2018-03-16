@@ -51,10 +51,8 @@ main {
     font-weight: bolder;
 }
 .button {
-    float: right;
     display: inline-block;
     padding: 15px 25px;
-    font-size: 24px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -137,4 +135,8 @@ h1.elegantshadow {
 	display:inline-block;
 	text-decoration: none;
 	color: inherit;
+}
+#rank-table {
+    margin: 20px 100px;
+    padding: 0;
 }

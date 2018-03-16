@@ -47,10 +47,12 @@ input[type=submit]:hover {
 </style>
 </head>
 <body onload="showMessage(${added});">
-    <audio controls controls loop autoplay="true">
-        <source src="audio/DuongMotChieuBeat-HuynhTu-4615457.mp3" type="audio/mpeg">
+    <audio controls loop='true' autoplay="true" style='display:none;' id='player'>
+        <source src="audio/AnhNangCuaAnhChoEmDenNgayMaiOstPianoCover-AnCoong-4745377.mp3" type="audio/mpeg">
         Your browser does not support the <code>audio</code> tag.
     </audio>
+    <button onclick="document.getElementById('player').muted=!document.getElementById('player').muted">
+                        Bật/ Tắt nhạc nền</button>
 <h2>Thêm câu hỏi mới</h2>
 <div class="container">
   <form action="addquestion" method="POST">

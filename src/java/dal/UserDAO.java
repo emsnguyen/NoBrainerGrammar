@@ -68,7 +68,7 @@ public class UserDAO extends BaseDAO<User>{
                     "      ,[RollID]\n" +
                     "      ,[Point]\n" +
                     "  FROM [User]\n" +
-                    "  ORDER BY Point";
+                    "  ORDER BY Point DESC";
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -93,7 +93,21 @@ public class UserDAO extends BaseDAO<User>{
 
     @Override
     public boolean update(User model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String query = "UPDATE [User]\n" +
+                    "   SET [Point] = ?\n" +
+                    " WHERE UserID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, model.getPoint());
+            ps.setInt(2, model.getUserID());
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override

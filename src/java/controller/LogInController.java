@@ -42,26 +42,9 @@ public class LogInController extends HttpServlet {
             request.setAttribute("error", "Sai tên đăng nhập hoặc mật khẩu");
             doGet(request, response);
         } else {
-//            InputStream is = u.getAvatar();
-//            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-//            int nRead;
-//            byte[] data = new byte[16384];
-//            while ((nRead = is.read(data, 0, data.length)) != -1) {
-//              buffer.write(data, 0, nRead);
-//              System.out.println("data.length: " + data.length);
-//            }
-//            
-//            ServletOutputStream out = response.getOutputStream();
-//            response.setContentType("image/png");
-//            response.setContentLength(data.length);
-//            response.getOutputStream().write(data);
-//            is.close();
-//            buffer.flush();
-//            buffer.close();
-//            out.close();
             request.getSession().setAttribute("user", u);
-            String urlToRedirect = RedirectHelper.redirectAfterAuthentication(u, "addquestion", "study");
-            response.sendRedirect(urlToRedirect);
+//            String urlToRedirect = RedirectHelper.redirectAfterAuthentication(u, "addquestion", "study");
+            response.sendRedirect("home2.jsp");
         }
     }
 

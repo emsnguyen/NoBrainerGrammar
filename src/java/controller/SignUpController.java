@@ -56,8 +56,9 @@ public class SignUpController extends HttpServlet {
             u.setRollID(2);
             if (userDB.insert(u)) {
                 request.getSession().setAttribute("user", u);
-                String urlToRedirect = RedirectHelper.redirectAfterAuthentication(u, "addquestion", "study");
-                response.sendRedirect(urlToRedirect);
+                response.sendRedirect("home2.jsp");
+//                String urlToRedirect = RedirectHelper.redirectAfterAuthentication(u, "addquestion", "study");
+//                response.sendRedirect(urlToRedirect);
             } else {
                 request.setAttribute("noFileChosen", "Database Error");
                 request.getRequestDispatcher("signup.jsp").forward(request, response);

@@ -24,26 +24,13 @@
         </audio>
         
     <h1 class='elegantshadow'>No-brainer Grammar</h1>
-    <center>
-        Loại ngữ pháp cần ôn 
-        <select name="categoryID" onchange='submitForm();'>
-            <option id="-1">Tất cả</option>
-            <c:forEach var='c' items="${cats}">
-                <option value="${c.categoryID}">${c.categoryName}</option>
-            </c:forEach>
-        </select>
-        <br/>
-        Độ khó
-        <select name="level" onchange='submitForm();'>
-            <option value="1">Dễ</option>
-            <option value="2">Trung bình</option>
-            <option value="3">Khó</option>
-        </select>
-    </center>
+
+    <form class="form" action="study" method="POST">
         <table class="topnav"> 
             <tr>
                 <td>
-                    <button onclick="document.getElementById('player').muted=!document.getElementById('player').muted">
+                    <button onclick="document.getElementById('player').muted=
+                                !document.getElementById('player').muted">
                         Bật/ Tắt nhạc nền</button>
                 </td>
                 <td>
@@ -53,12 +40,12 @@
                 <td>
                     <div class="dropdown">
                         <button class="dropbtn">
-                            <img src="login"/> 
+                            ${user.username}
                         </button>
                         <div class="dropdown-content">
-                            <a href="#">Đổi ảnh đại diện</a>
-                            <a href="#">Đổi độ khó câu hỏi</a>
                             <a href="#">Đổi mật khẩu</a>
+                            <a href="#">Đổi loại câu hỏi</a>
+                            <a href="#">Đổi độ khó</a>
                             <a href="#">Thoát</a>
                         </div>
                     </div>
@@ -66,25 +53,27 @@
             </tr>
             <tr>
                 <td>Điểm của bạn: 
-                    <div id="point" name="point">
+                    <div id="point">
                          ${user.point}
                     </div>
                 </td>
             </tr>
         </table>
     <center>
-    <form class="form" action="study" method="POST">
+        <input id='userpoint' type='hidden' name='userpoint' value='${user.point}'>
+        <input id='isCorrect' type='hidden' name='isCorrect'>
         <table>
         <tr>
             <td>
                 <div class="left-arrow arrow">
-                    <img src="images/arrowback.png" alt=""/>
+                    <img src="images/Actions-arrow-left-icon.png" alt=""
+                         onclick="submitForm();"/>
                 </div>
             </td>
             <td>
                 Thời gian còn lại: 
                 <div id="timer"></div>
-                <div id="notif">Notif</div>
+                <div id="notif"></div>
                 <div class="question-answer">
                     <div>
                         <h1 class="question" onmouseover="readAnswer(this.innerHTML);">
@@ -115,14 +104,12 @@
             </td>
             <td>
                 <div class="right-arrow arrow">
-                    <img src="images/arrowforward.png" alt=""/>
+                    <img src="images/Actions-arrow-right-icon.png" alt=""
+                         onclick="submitForm();"/>
                 </div>
             </td>
         </tr> 
     </table>
-<!--    <button class='showexplain' style='display: none;'
-        onclick="showExplanation();">
-    </button>-->
     <h4 class="explanation" style='display: none;'>
         ${answer.explanation}
     </h4>

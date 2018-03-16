@@ -152,12 +152,13 @@ public class QuizDAO extends BaseDAO<Quiz>{
                         "      ,[LevelOfDifficulty]\n" +
                         "      ,[CategoryID]\n" +
                         "  FROM [Quiz] WHERE"
-                    + " QuizID > ? AND LevelOfDifficulty = ?"
-                    + " AND CategoryID = ?";
+                    + " QuizID > ? AND LevelOfDifficulty = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, fromIndex);
             ps.setInt(2, level);
-            ps.setInt(3, cateID);
+            if (cateID != -1) {
+                query += " AND CategoryID = " + cateID;
+            }
             ResultSet rs = ps.executeQuery();
             CategoryDAO catDB = new CategoryDAO();
             if (rs.next()) {

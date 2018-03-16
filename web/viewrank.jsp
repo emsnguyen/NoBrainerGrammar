@@ -4,6 +4,7 @@
     Author     : emsnguyen
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
@@ -15,28 +16,26 @@
     </head>
     <body>
         <nav>
-            <h1 class='elegantshadow'>No-brainer Grammar</h1>
-            <input class="button" type="submit" onclick="{window.location.href='signup';}" value="Tạo tài khoản mới"/>
-            <input class="button" type="submit" onclick="{window.location.href='login';}" value="Đăng nhập"/>
+            <h1 class='elegantshadow'>Xếp hạng trên <br/>No-brainer Grammar</h1>
         </nav>
         <main>
-            <div class="main-content">
-                <span>Học qua những bài trắc nghiệm ngắn, được biên soạn theo giáo trình
-                ôn thi THPT quốc gia</span>
-                <img src="images/nobrainer.jpg" alt=""/>
-            </div>
-            <div class="main-content">
-                <img src="images/nobrainer.jpg" alt=""/>
-                <span>Giao diện Đẹp, Đơn giản, Thân thiện</span>
-            </div>
-            <div class="main-content">
-                <span>Đánh giá đúng trình độ, bảng xếp hạng được cập nhật từng giây</span>
-                <img src="images/nobrainer.jpg" alt=""/>
-            </div>
-            <div class="main-content">
-                <img src="images/nobrainer.jpg" alt=""/>
-                <span>Giải thích chi tiết và phân tích chuyên sâu</span>
-            </div>
+            <table id='rank-table' border='1px solid black'>
+                <c:forEach items='${users}' var='u' varStatus="loop">
+                    <tr>
+                        <td 
+                            <c:if test='${u.username eq sessionScope.user.username}'>
+                                style='color: green'
+                            </c:if>
+                            >
+                            <h3>${loop.index+1} : ${u.username} </h3>
+                        </td>
+                        <td style='background-color: #4CAF50; color: white; text-align: center'>
+                            <h3>${u.point}</h3>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+            
         </main>
         <footer class="footer-basic-centered">
                 <p class="footer-company-motto">Spare your brain for something more significant</p>

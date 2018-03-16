@@ -1,6 +1,6 @@
 var question = document.querySelector('.question');
 function speak() {
-    var msg = new SpeechSynthesisUtterance(question.innerHTML);
+    var msg = new SpeechSynthesisUtterance(question.innerHTML.replace(/_/g, '...'));
     window.speechSynthesis.speak(msg);
 }
 speak();
@@ -28,6 +28,7 @@ function readAnswer(text) {
     window.speechSynthesis.speak(msg);
 }
 var answer = document.querySelector(".answer");
+var isCorrect = document.querySelector("#isCorrect");
 var correctAnswer = document.querySelector('.correctAnswer');
 var answerList = answer.querySelectorAll('div');
 var showexplain = document.querySelector('.showexplain');
@@ -58,6 +59,7 @@ function checkUserChoice(choice) {
         notif.innerHTML = 'Đúng rồi, bạn đúng là thiên tài!';
         var currentPoint = document.querySelector('#point');
         var iPoint = parseInt(currentPoint.innerHTML);
+        isCorrect.value = 'correct';
         console.log(iPoint);
         if (timeLeft > 7) {
             currentPoint.innerHTML = iPoint + 20;
@@ -66,10 +68,13 @@ function checkUserChoice(choice) {
         } else {
             currentPoint.innerHTML = iPoint + 10;
         }
+        userpoint.value = currentPoint.innerHTML;
     } else {
+        isCorrect.value = 'incorrect';
         notif.innerHTML = 'Sai rồi, tiếc quá. Xem giải thích nhé bạn';
     }
 }
+var userpoint = document.querySelector('#userpoint');
 var explanation = document.querySelector('.explanation');
 function showExplanation() {
     explanation.style.display = 'block';

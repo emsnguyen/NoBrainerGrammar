@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import dal.UserDAO;
@@ -30,7 +25,7 @@ public class ViewRankController extends BaseAuthenticationController {
     protected void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDAO userDB = new UserDAO();
         ArrayList<User> users = userDB.getAll();
-        request.setAttribute("user", users);
+        request.setAttribute("users", users);
         request.getRequestDispatcher("viewrank.jsp").forward(request, response);
     }
 
