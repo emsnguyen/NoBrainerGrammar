@@ -11,7 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Category;
 import model.IModel;
+import model.Quiz;
+import model.User;
 
 /**
  *
@@ -68,6 +71,50 @@ public class UserQuizDAO extends BaseDAO<IModel>{
         }
         return false;
     }
+    
+    public Quiz chooseQuizToShowNext(int cateID, int level, User u) {
+        try {
+            String query = "SELECT TOP 1 [QuizID]\n" +
+                    "      ,[Content]\n" +
+                    "      ,[Level]\n" +
+                    "      ,[CategoryID]\n" +
+                    "  FROM [Quiz]\n" +
+                    "  WHERE (CategoryID = ? AND LEVEL = ?) \n" +
+                    "  AND \n" +
+                    "  (\n" +
+                    "	  QuizID NOT IN (SELECT QuizID FROM UserQuiz)\n" +
+                    "	  OR\n" +
+                    "	  QuizID IN \n" +
+                    "	  (SELECT [QuizID]\n" +
+                    "			  FROM [UserQuiz]\n" +
+                    "			  WHERE UserID = ?\n" +
+                    "			  AND (\n" +
+                    "				  NoOfCorrectAnswers < 5\n" +
+                    "				  OR NoOfCorrectAnswers + 5 < NoOfIncorrectAnswers\n" +
+                    "			  )\n" +
+                    "	   )\n" +
+                    "  )\n" +
+                    "  order by Checksum(newID());"; //to get a random record
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, cateID);
+            ps.setInt(2, level);
+            ps.setInt(3, u.getUserID());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Quiz q = new Quiz();
+                q.setQuizID(rs.getInt("QuizID"));
+                q.setContent(rs.getString("Content"));
+                q.setLevel(rs.getInt("Level"));
+                CategoryDAO cateDB = new CategoryDAO();
+                Category c = cateDB.get(rs.getInt("CategoryID"));
+                q.setCategory(c);
+                return q;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserQuizDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     @Override
     public boolean insert(IModel model) {
@@ -87,6 +134,32 @@ public class UserQuizDAO extends BaseDAO<IModel>{
     @Override
     public IModel get(int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean update(int userID, int quizID, String isCorrect) {
+        try {
+            String counter;
+            if (isCorrect.equals("correct")) {
+                counter = "NoOfCorrectAnswers";
+            } else {
+                counter = "NoOfIncorrectAnswers";
+            }
+            String query = "UPDATE [UserQuiz]\n" +
+                    "   SET "
+                    + counter + " = " + counter + "+1"
+                    + "WHERE UserID = ?\n" +
+                    " AND QuizID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, userID);
+            ps.setInt(2, quizID);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserQuizDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
 }

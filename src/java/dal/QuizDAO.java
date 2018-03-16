@@ -29,7 +29,7 @@ public class QuizDAO extends BaseDAO<Quiz>{
         try {
             String query = "SELECT [QuizID]\n" +
                             "      ,[Content]\n" +
-                            "      ,[LevelOfDifficulty]\n" +
+                            "      ,[Level]\n" +
                             "      ,[CategoryID]\n" +
                             "  FROM [Quiz]";
             PreparedStatement ps = connection.prepareStatement(query);
@@ -40,7 +40,7 @@ public class QuizDAO extends BaseDAO<Quiz>{
                 q.setQuizID(rs.getInt("QuizID"));
                 q.setContent(rs.getString("Content"));
                 q.setCategory(catDB.get(rs.getInt("CategoryID")));
-                q.setLevel(rs.getInt("LevelOfDifficulty"));
+                q.setLevel(rs.getInt("Level"));
                 quizzes.add(q);
             }
         } catch (SQLException ex) {
@@ -59,7 +59,7 @@ public class QuizDAO extends BaseDAO<Quiz>{
             connection.setAutoCommit(false);
             String insertQuiz = "INSERT INTO [Quiz]\n" +
                     "           ([Content]\n" +
-                    "           ,[LevelOfDifficulty]\n" +
+                    "           ,[Level]\n" +
                     "           ,[CategoryID])\n" +
                     "     VALUES\n" +
                     "           (?, ?, ?)";
@@ -130,7 +130,7 @@ public class QuizDAO extends BaseDAO<Quiz>{
         Quiz q = new Quiz();
         String query = "SELECT [QuizID]\n" +
                         "      ,[Content]\n" +
-                        "      ,[LevelOfDifficulty]\n" +
+                        "      ,[Level]\n" +
                         "      ,[CategoryID]\n" +
                         "  FROM [Quiz]";
         PreparedStatement ps;
@@ -149,10 +149,10 @@ public class QuizDAO extends BaseDAO<Quiz>{
         try {
             String query = "SELECT TOP 1 [QuizID]\n" +
                         "      ,[Content]\n" +
-                        "      ,[LevelOfDifficulty]\n" +
+                        "      ,[Level]\n" +
                         "      ,[CategoryID]\n" +
                         "  FROM [Quiz] WHERE"
-                    + " QuizID > ? AND LevelOfDifficulty = ?";
+                    + " QuizID > ? AND Level = ?";
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, fromIndex);
             ps.setInt(2, level);
@@ -165,7 +165,7 @@ public class QuizDAO extends BaseDAO<Quiz>{
                 q.setQuizID(rs.getInt("QuizID"));
                 q.setContent(rs.getString("Content"));
                 q.setCategory(catDB.get(rs.getInt("CategoryID")));
-                q.setLevel(rs.getInt("LevelOfDifficulty"));
+                q.setLevel(rs.getInt("Level"));
                 return q;
             }
         } catch (SQLException ex) {

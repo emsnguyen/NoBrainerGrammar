@@ -16,7 +16,7 @@
     </head>
     <body>
         <nav>
-            <h1 class='elegantshadow'>Xếp hạng trên <br/>No-brainer Grammar</h1>
+            <h1 class='elegantshadow'>Xếp hạng</h1>
         </nav>
         <main>
             <table id='rank-table' border='1px solid black'>

@@ -47,7 +47,7 @@ input[type=submit]:hover {
 </style>
 </head>
 <body onload="showMessage(${added});">
-    <audio controls loop='true' autoplay="true" style='display:none;' id='player'>
+    <audio controls loop='true' style='display:none;' id='player'>
         <source src="audio/AnhNangCuaAnhChoEmDenNgayMaiOstPianoCover-AnCoong-4745377.mp3" type="audio/mpeg">
         Your browser does not support the <code>audio</code> tag.
     </audio>
