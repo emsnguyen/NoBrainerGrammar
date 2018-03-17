@@ -43,8 +43,11 @@ public class LogInController extends HttpServlet {
             doGet(request, response);
         } else {
             request.getSession().setAttribute("user", u);
-//            String urlToRedirect = RedirectHelper.redirectAfterAuthentication(u, "addquestion", "study");
-            response.sendRedirect("home2.jsp");
+            if (u.getRollID() == 1) {
+                response.sendRedirect("home2_admin.jsp");
+            } else {
+                response.sendRedirect("home2.jsp");
+            }
         }
     }
 

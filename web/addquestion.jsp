@@ -44,10 +44,33 @@ input[type=submit]:hover {
     background-color: #f2f2f2;
     padding: 20px;
 }
+button {
+    display: inline-block;
+    padding: 5px 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    font-size: 30px;
+    margin: 10px;
+}
+
+button:hover {background-color: #3e8e41}
+
+button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 </style>
 </head>
 <body onload="showMessage(${added});">
-    <audio controls loop='true' style='display:none;' id='player'>
+    <audio controls autoplay style='display:none;' id='player'>
         <source src="audio/AnhNangCuaAnhChoEmDenNgayMaiOstPianoCover-AnCoong-4745377.mp3" type="audio/mpeg">
         Your browser does not support the <code>audio</code> tag.
     </audio>

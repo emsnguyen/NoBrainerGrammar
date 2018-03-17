@@ -1,10 +1,13 @@
 package dal;
 
+import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Answer;
@@ -117,26 +120,51 @@ public class QuizDAO extends BaseDAO<Quiz>{
 
     @Override
     public boolean delete(Quiz model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
-    public boolean update(Quiz model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean update(Quiz q) {
+        try {
+            String updateQuiz = "UPDATE [Quiz]\n" +
+                            "   SET [Content] = ?\n" +
+                            "      ,[Level] = ?\n" +
+                            "      ,[CategoryID] = ?\n" +
+                            " WHERE QuizID = ?";
+            PreparedStatement ps;
+            ps = connection.prepareStatement(updateQuiz);
+            ps.setString(1, q.getContent());
+            ps.setInt(2, q.getLevel());
+            ps.setInt(3, q.getCategory().getCategoryID());
+            ps.setInt(4, q.getQuizID());
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QuizDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
-    public Quiz get(int index) {
+    public Quiz get(int quizID) {
         Quiz q = new Quiz();
         String query = "SELECT [QuizID]\n" +
                         "      ,[Content]\n" +
                         "      ,[Level]\n" +
                         "      ,[CategoryID]\n" +
-                        "  FROM [Quiz]";
+                        "  FROM [Quiz] WHERE QuizID = " + quizID;
         PreparedStatement ps;
         try {
             ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                q.setQuizID(rs.getInt("QuizID"));
+                q.setContent(rs.getString("Content"));
+                q.setCategory(new CategoryDAO().get(rs.getInt("CategoryID")));
+                q.setLevel(rs.getInt("Level"));
+            }
         } catch (SQLException ex) {
             Logger.getLogger(QuizDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -172,6 +200,66 @@ public class QuizDAO extends BaseDAO<Quiz>{
             Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public ArrayList<Quiz> getAll(int iCateID, int iLevel, String search) {
+        ArrayList<Quiz> quizzes = new ArrayList<>();
+        HashMap<Integer, Integer> params = new HashMap<>();
+        try {
+            String query = "SELECT [QuizID]\n" +
+                            "      ,[Content]\n" +
+                            "      ,[Level]\n" +
+                            "      ,[CategoryID]\n" +
+                            "  FROM [Quiz]\n" +
+                            "  WHERE Content LIKE '%"
+                            + search + "%'";
+            int index = 0;
+            if (iCateID != -1) {
+                index++;
+                query +=  " AND CategoryID = ?\n";
+                params.put(index, iCateID);
+            }
+            if (iLevel != -1) {
+                index++;
+                query += " AND Level = ?\n";
+                params.put(index, iLevel);
+            }
+            PreparedStatement ps = connection.prepareStatement(query);
+            for (Map.Entry<Integer, Integer> entry : params.entrySet()) {
+                Integer idx = entry.getKey();
+                Integer value = entry.getValue();
+                ps.setInt(idx, value);
+            }
+            ResultSet rs = ps.executeQuery();
+            CategoryDAO catDB = new CategoryDAO();
+            while (rs.next()) {
+                Quiz q = new Quiz();
+                q.setQuizID(rs.getInt("QuizID"));
+                q.setContent(rs.getString("Content"));
+                q.setCategory(catDB.get(rs.getInt("CategoryID")));
+                q.setLevel(rs.getInt("Level"));
+                quizzes.add(q);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return quizzes;
+    }
+
+    public boolean delete(int quizID) {
+        try {
+            String query = "DELETE FROM [Quiz]\n" +
+                    "      WHERE QuizID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, quizID);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AnswerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
 }
