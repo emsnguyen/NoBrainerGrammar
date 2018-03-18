@@ -89,12 +89,12 @@ public class UserQuizDAO extends BaseDAO<IModel>{
                     "			  FROM [UserQuiz]\n" +
                     "			  WHERE UserID = ?\n" +
                     "			  AND (\n" +
-                    "				  NoOfCorrectAnswers < 5\n" +
-                    "				  OR NoOfCorrectAnswers + 5 < NoOfIncorrectAnswers\n" +
+                    "				  NoOfCorrectAnswers < 2\n" +
+                    "				  OR NoOfCorrectAnswers < NoOfIncorrectAnswers\n" +
                     "			  )\n" +
                     "	   )\n" +
                     "  )\n" +
-                    "  order by Checksum(newID());"; //to get a random record
+                    "  order by newID();"; //to get a random record
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, cateID);
             ps.setInt(2, level);
@@ -130,7 +130,32 @@ public class UserQuizDAO extends BaseDAO<IModel>{
     public boolean update(IModel model) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    public boolean update(int userID, int cateID, int level) {
+        try {
+            String query = "UPDATE [UserQuiz]\n" +
+                    "   SET [NoOfCorrectAnswers] = 0\n" +
+                    "      ,[NoOfIncorrectAnswers] = 0\n" +
+                    " WHERE UserID = ?\n" +
+                    " AND QuizID IN\n" +
+                    "			 (\n" +
+                    "				SELECT QuizID FROM Quiz\n" +
+                    "				WHERE CategoryID = ?\n" +
+                    "				AND Level = ?\n" +
+                    "			 )";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, userID);
+            ps.setInt(2, cateID);
+            ps.setInt(3, level);
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserQuizDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
     @Override
     public IModel get(int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -51,7 +51,8 @@ and open the template in the editor.
             </div>
 
             <div class="w3-twothird">
-              <h1>Giao diện Đẹp, Đơn giản, Thân thiện</h1>
+              <h1>Giao diện Đẹp, Đơn giản, Thân thiện
+              Tạo một trải nghiệm học tập thú vị nhưng hiệu quả</h1>
               <img src="images/nobrainer.jpg" alt=""/>
             </div>
           </div>
@@ -83,7 +84,10 @@ and open the template in the editor.
             </div>
 
             <div class="w3-twothird">
-              <h1>Giải thích chi tiết và phân tích chuyên sâu</h1>
+              <h1>Giải thích chi tiết và phân tích chuyên.
+              Tuy nhiên nhiều lúc đễ dễ hiểu cho nhiều bạn (đặc biệt là các bạn mới bắt đầu),
+              phần giải thích được giản lược và dịch sát nghĩa nhất.
+              Do vậy, nhiều lúc phần dịch có thể chưa hay lắm, mong các bạn bỏ quá!</h1>
               <img src="images/nobrainer.jpg" alt=""/>
             </div>
           </div>

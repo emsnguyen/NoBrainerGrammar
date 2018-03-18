@@ -19,7 +19,8 @@ and open the template in the editor.
         </nav>
         <center>
             <h2>
-                Opps! Hết câu hỏi rồi. Bạn chọn mức khác để tiếp tục chơi nhé!<br/>
+                Opps! Hết câu hỏi rồi. Bạn có thể: <br/>
+                <a href="resetquestion" class="button">Chọn bắt đầu lại từ đầu để học chắc lại phần này</a><br/>
                 <a href="select" class="button">Chọn thể loại và mức học khác</a><br/>
                 <a href="home2.jsp" class="button">Về trang chủ</a>
             </h2>

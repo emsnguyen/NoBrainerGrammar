@@ -45,7 +45,7 @@ public class SignUpController extends HttpServlet {
             request.setAttribute("wrongUsername", checkUsername);
             request.setAttribute("wrongPassword", checkPassword);
             request.getRequestDispatcher("signup.jsp").forward(request, response);
-        } else if (userDB.isUsernameExisted(username)) {
+        } else if (userDB.isUsernameExisted(username.trim())) {
             request.setAttribute("wrongUsername", "Tên đăng nhập đã tồn tại!");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else {

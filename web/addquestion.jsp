@@ -82,15 +82,31 @@ button:active {
     <label for="category">Loại ngữ pháp</label>
       <select name="categoryID" id="category">
         <c:forEach var='c' items="${cats}">
-              <option value="${c.categoryID}">${c.categoryName}</option>
+              <option value="${c.categoryID}"
+                      <c:if test="${c.categoryID eq param.categoryID}">
+                          selected="selected"
+                      </c:if>
+                      >${c.categoryName}</option>
           </c:forEach>
       </select>
       <br/>
     <label for="level">Độ khó</label>
       <select name="level" id="level">
-          <option value="1">Dễ</option>
-          <option value="2">Trung bình</option>
-          <option value="3">Khó</option>
+          <option value="1"
+                    <c:if test="${'1' eq param.level}">
+                        selected="selected"
+                    </c:if>
+                  >Dễ</option>
+          <option value="2"
+                    <c:if test="${'2' eq param.level}">
+                        selected="selected"
+                    </c:if>
+                  >Trung bình</option>
+          <option value="3"
+                    <c:if test="${'3' eq param.level}">
+                        selected="selected"
+                    </c:if>
+                  >Khó</option>
       </select>
     <br/>
     <label for="quiz">Câu hỏi</label>

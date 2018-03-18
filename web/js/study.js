@@ -1,6 +1,8 @@
 var question = document.querySelector('.question');
 function speak() {
-    var msg = new SpeechSynthesisUtterance(question.innerHTML.replace(/_/g, '...'));
+    var text = question.innerHTML.replace(/_/g, '...');
+    console.log(text);
+    var msg = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(msg);
 }
 speak();
@@ -11,35 +13,42 @@ var timer = document.querySelector('#timer');
 function countdown() {
     // Update the count down every 1 second
     x = setInterval(function() {
-        document.querySelector('#timer').innerHTML = timeLeft;
+        timer.innerHTML = timeLeft;
         timeLeft--;
         // If the count down is over, write some text 
         if (timeLeft < 0) {
             clearInterval(x);
             checkCorrectAnswerWhenTimeOut();
             timer.innerHTML = 'Hết giờ';
+            notif.style.display = "block";
             notif.innerHTML = 'Rất tiếc bạn chưa trả lời được trong vòng 10s!';
         }
     }, 1000);
 }
 countdown();
+var synth = window.speechSynthesis;
 function readAnswer(text) {
+    var text = text.replace(/_/g, '...');
+    console.log(text);
     var msg = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(msg);
+    synth.speak(msg);
 }
+function cancelRead() {
+    synth.cancel();
+}
+var userpoint = document.querySelector('#userpoint');
 var answer = document.querySelector(".answer");
 var isCorrect = document.querySelector("#isCorrect");
 var correctAnswer = document.querySelector('.correctAnswer');
 var answerList = answer.querySelectorAll('div');
 var showexplain = document.querySelector('.showexplain');
+var explanation = document.querySelector('.explanation');
+var notif = document.querySelector('#notif');
 function checkCorrectAnswerWhenTimeOut() {
-    correctAnswer.style.display = 'block';
-//    showexplain.style.display = 'block';
-//    showexplain.textContent = 'Xem giải thích nào';
-//    var explanation = document.querySelector('.explanation');
+    synth.cancel();
+    question.style.pointerEvents = 'none';
     explanation.style.display = 'block';
     for (var i = 0; i < answerList.length; i++) {
-        question.style.pointerEvents = 'none';
         answerList[i].style.pointerEvents = 'none';
         if (answerList[i].innerHTML.trim() === correctAnswer.innerHTML.trim()) {
             answerList[i].style.color = 'green';
@@ -48,14 +57,21 @@ function checkCorrectAnswerWhenTimeOut() {
         }
     }
 }
-var notif = document.querySelector('#notif');
+document.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.querySelector("#next-question").click();
+    }
+});
 function checkUserChoice(choice) {
     clearInterval(x);
     checkCorrectAnswerWhenTimeOut();
     if (isTimeOut) {
         return;
     }
+    notif.style.opacity = 1;
     if (choice.innerHTML.trim() === correctAnswer.innerHTML.trim()) {
+        notif.style.color = '#62f441';
         notif.innerHTML = 'Đúng rồi, bạn đúng là thiên tài!';
         var currentPoint = document.querySelector('#point');
         var iPoint = parseInt(currentPoint.innerHTML);
@@ -71,13 +87,14 @@ function checkUserChoice(choice) {
         userpoint.value = currentPoint.innerHTML;
     } else {
         isCorrect.value = 'incorrect';
+        notif.style.color = '#f44256';
         notif.innerHTML = 'Sai rồi, tiếc quá. Xem giải thích nhé bạn';
     }
 }
-var userpoint = document.querySelector('#userpoint');
-var explanation = document.querySelector('.explanation');
+
+
 function showExplanation() {
-    explanation.style.display = 'block';
+    explanation.style.display = "block";
 }
 function submitForm() {
     document.querySelector('.form').submit(); 

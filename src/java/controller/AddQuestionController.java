@@ -36,11 +36,11 @@ public class AddQuestionController extends BaseAuthenticationController {
     @Override
     protected void handlePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String content = request.getParameter("quiz");
-        String optA = request.getParameter("optA");
-        String optB = request.getParameter("optB");
-        String optC = request.getParameter("optC");
-        String optD = request.getParameter("optD");
+        String content = request.getParameter("quiz").trim();
+        String optA = request.getParameter("optA").trim();
+        String optB = request.getParameter("optB").trim();
+        String optC = request.getParameter("optC").trim();
+        String optD = request.getParameter("optD").trim();
         String selected = request.getParameter("correctOpt");
         String correctOpt;
         int level = Integer.parseInt(request.getParameter("level"));
@@ -61,7 +61,7 @@ public class AddQuestionController extends BaseAuthenticationController {
                 correctOpt = optA;
                 break;
         }
-        String explanation = request.getParameter("explanation");
+        String explanation = request.getParameter("explanation").trim();
         Quiz q = new Quiz();
         q.setLevel(level);
         q.setContent(content);

@@ -47,8 +47,9 @@ public class UserDAO extends BaseDAO<User>{
                             "      ,[Username]\n" +
                             "      ,[Password]\n" +
                             "  FROM [User]";
-            query += " WHERE Username = " + username;
+            query += " WHERE Username = ?";
             PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                  return true;
@@ -67,7 +68,8 @@ public class UserDAO extends BaseDAO<User>{
                     "      ,[Password]\n" +
                     "      ,[RollID]\n" +
                     "      ,[Point]\n" +
-                    "  FROM [User]\n" +
+                    "  FROM [User]\n"
+                    + " WHERE RollID = 2" +
                     "  ORDER BY Point DESC";
             PreparedStatement ps = connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();

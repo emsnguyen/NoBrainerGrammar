@@ -44,6 +44,8 @@ public class StudyController extends BaseAuthenticationController {
         User u = (User) session.getAttribute("user");
         Quiz q = uqDAO.chooseQuizToShowNext(iCateID, iLevel, u);
         if (q == null) {
+            request.getSession().setAttribute("cateID", cateID);
+            request.getSession().setAttribute("level", level);
             response.sendRedirect("nomorequestions.jsp");
         } else {
             //insert to UserQuiz
@@ -56,6 +58,7 @@ public class StudyController extends BaseAuthenticationController {
             //set attributes for request
             request.setAttribute("quiz", q);
             request.setAttribute("answer", a);
+            
             //display in study.jsp
             request.getRequestDispatcher("study.jsp").forward(request, response);
         }

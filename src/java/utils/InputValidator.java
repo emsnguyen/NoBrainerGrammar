@@ -29,17 +29,17 @@ public class InputValidator {
         }
         //match requires the whole string to match a certain regex
         //wrong if password does not contain lowercase letters
-//        if (!password.matches("(.*)[a-z](.*)")) {
-//            return "Mật khẩu phải chứa ít nhất 1 chữ cái thường";
-//        }
-//        //wrong if password does not contain uppercase letters
-//        if (!password.matches("(.*)[A-Z](.*)")) {
-//            return "Mật khẩu phải chứa ít nhất 1 chữ cái hoa";
-//        }
-//        //wrong if password does not contain number
-//        if (!password.matches("(.*)[0-9](.*)")) {
-//            return "Mật khẩu phải chứa số";
-//        }
+        if (!password.matches("(.*)[a-z](.*)")) {
+            return "Mật khẩu phải chứa ít nhất 1 chữ cái thường";
+        }
+        //wrong if password does not contain uppercase letters
+        if (!password.matches("(.*)[A-Z](.*)")) {
+            return "Mật khẩu phải chứa ít nhất 1 chữ cái hoa";
+        }
+        //wrong if password does not contain number
+        if (!password.matches("(.*)[0-9](.*)")) {
+            return "Mật khẩu phải chứa số";
+        }
         return "";
     }
 }

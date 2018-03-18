@@ -5,10 +5,12 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author emsnguyen
  */
-public interface IModel {
+public interface IModel extends Serializable {
     
 }
