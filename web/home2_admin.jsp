@@ -17,6 +17,9 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
+        <c:if test="${user.rollID ne 1}">
+            <c:redirect url="accessdenied.html"/>
+        </c:if>
         <main>
             <header class="w3-container w3-red w3-center" style="padding:128px 16px">
                 <h1 class='elegantshadow'>Chào mừng admin trở lại với <br/>
@@ -36,7 +39,7 @@ and open the template in the editor.
                         onclick="{window.location.href='listquestion';}">Cập nhật câu hỏi</button>
                 <br/>
                 <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"
-                        onclick="{window.location.href='changepw';}">Đổi mật khẩu</button>
+                        onclick="{window.location.href='changepassword';}">Đổi mật khẩu</button>
                 <br/>
                 <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"
                         onclick="{window.location.href='logout';}">Thoát</button>

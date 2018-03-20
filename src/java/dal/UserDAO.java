@@ -112,6 +112,23 @@ public class UserDAO extends BaseDAO<User>{
         return false;
     }
 
+    public boolean updatePassword(User model) {
+        try {
+            String query = "UPDATE [User]\n" +
+                    "   SET [Password] = ?\n" +
+                    " WHERE UserID = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, model.getPassword());
+            ps.setInt(2, model.getUserID());
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected != 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
     @Override
     public User get(int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

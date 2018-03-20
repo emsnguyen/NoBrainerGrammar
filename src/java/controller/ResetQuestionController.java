@@ -40,11 +40,8 @@ public class ResetQuestionController extends BaseAuthenticationController {
         int iCateID = Integer.parseInt(cateID);
         int iLevel = Integer.parseInt(level);
         UserQuizDAO uqDB = new UserQuizDAO();
-        if (uqDB.update(u.getUserID(), iCateID, iLevel)) {
-            response.sendRedirect("select");
-        } else {
-            response.getWriter().write("Error while resetting questions");
-        }
+        uqDB.reset(u.getUserID(), iCateID, iLevel);
+        response.sendRedirect("select");
     }
 
     @Override

@@ -18,10 +18,13 @@
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     </head>
     <body>
-        <audio controls loop style="display:none" id='player'>
-            <source src="audio/MatTroiCuaEmPianoCover-AnCoong-5405112.mp3" type="audio/mpeg">
-            Your browser does not support the <code>audio</code> tag.
-        </audio>
+    <c:if test="${user.rollID eq 1}">
+        <c:redirect url="accessdenied.html"/>
+    </c:if>
+    <audio controls loop style="display:none" id='player'>
+        <source src="audio/MatTroiCuaEmPianoCover-AnCoong-5405112.mp3" type="audio/mpeg">
+        Your browser does not support the <code>audio</code> tag.
+    </audio>
         
     <h1 class='elegantshadow'>No-brainer Grammar</h1>
 

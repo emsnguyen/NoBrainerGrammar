@@ -41,6 +41,8 @@
         </style>
 </head>
 <body>
+    <%--<jsp:include page="precheck.jsp"/>--%>
+    <%@include file="precheck.jsp" %>
     <center>
         <h1>Danh sách các câu hỏi</h1>
         <form action="listquestion" method="POST" id="form">

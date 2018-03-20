@@ -70,6 +70,9 @@ button:active {
 </style>
 </head>
 <body onload="showMessage(${added});">
+    <c:if test="${user.rollID ne 1}">
+        <c:redirect url="accessdenied.html"/>
+    </c:if>
     <audio controls autoplay style='display:none;' id='player'>
         <source src="audio/AnhNangCuaAnhChoEmDenNgayMaiOstPianoCover-AnCoong-4745377.mp3" type="audio/mpeg">
         Your browser does not support the <code>audio</code> tag.

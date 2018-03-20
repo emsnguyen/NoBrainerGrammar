@@ -94,7 +94,8 @@ public class UserQuizDAO extends BaseDAO<IModel>{
                     "			  )\n" +
                     "	   )\n" +
                     "  )\n" +
-                    "  order by newID();"; //to get a random record
+                    "  order by CHECKSUM(NEWID());"; //to get a random record
+            System.out.println("Query choose quiz to show next: " + query);
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, cateID);
             ps.setInt(2, level);
@@ -131,7 +132,7 @@ public class UserQuizDAO extends BaseDAO<IModel>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public boolean update(int userID, int cateID, int level) {
+    public boolean reset(int userID, int cateID, int level) {
         try {
             String query = "UPDATE [UserQuiz]\n" +
                     "   SET [NoOfCorrectAnswers] = 0\n" +
@@ -163,17 +164,15 @@ public class UserQuizDAO extends BaseDAO<IModel>{
 
     public boolean update(int userID, int quizID, String isCorrect) {
         try {
-            String counter;
+            String query;
             if (isCorrect.equals("correct")) {
-                counter = "NoOfCorrectAnswers";
+                query = "UPDATE UserQuiz SET NoOfCorrectAnswers "
+                        + "= NoOfCorrectAnswers+1 WHERE UserID = ? AND QuizID = ?";
             } else {
-                counter = "NoOfIncorrectAnswers";
+                query = "UPDATE UserQuiz SET NoOfInCorrectAnswers "
+                        + "= NoOfInCorrectAnswers+1 WHERE UserID = ? AND QuizID = ?";
             }
-            String query = "UPDATE [UserQuiz]\n" +
-                    "   SET "
-                    + counter + " = " + counter + "+1"
-                    + "WHERE UserID = ?\n" +
-                    " AND QuizID = ?";
+            System.out.println("update no of answers: " + query);
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, userID);
             ps.setInt(2, quizID);

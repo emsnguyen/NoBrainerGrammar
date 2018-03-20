@@ -71,6 +71,9 @@
         </style>
     </head>
     <body>
+        <c:if test="${user.rollID ne 1}">
+            <c:redirect url="accessdenied.html"/>
+        </c:if>
         <h1>Chi tiết câu hỏi</h1>
         <form action="updatequestion" id="form">
             <table class="quizzes">

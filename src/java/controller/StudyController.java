@@ -37,6 +37,7 @@ public class StudyController extends BaseAuthenticationController {
         HttpSession session = request.getSession();
         String cateID = session.getAttribute("cateID").toString();
         String level = session.getAttribute("level").toString();
+        
         //choose a suitable quiz to user
         int iCateID = Integer.parseInt(cateID);
         int iLevel = Integer.parseInt(level);
@@ -48,8 +49,12 @@ public class StudyController extends BaseAuthenticationController {
             request.getSession().setAttribute("level", level);
             response.sendRedirect("nomorequestions.jsp");
         } else {
-            //insert to UserQuiz
-            uqDAO.insertNewUserQuiz(u.getUserID(), q.getQuizID());
+            if (!uqDAO.isUserQuizExisted(u.getUserID(), q.getQuizID())) {
+                //insert to UserQuiz
+                uqDAO.insertNewUserQuiz(u.getUserID(), q.getQuizID());
+            } else {
+                System.out.println("User Quiz existed, no need to insert a new one");
+            }
 
             //get Quiz and Answer ready
             AnswerDAO answerDB = new AnswerDAO();
@@ -77,12 +82,18 @@ public class StudyController extends BaseAuthenticationController {
         User u = (User) request.getSession().getAttribute("user");
         if (newPoint != u.getPoint()) {
             u.setPoint(newPoint);
-            userDB.update(u);
+            if (!userDB.update(u)) {
+                response.getWriter().write("database error while updating user point in db");
+                return;
+            }
         } 
         
         //update correct and incorrect answers in UserQuiz
         UserQuizDAO uqDB = new UserQuizDAO();
-        uqDB.update(u.getUserID(), quizID, isCorrect);
+        if (!uqDB.update(u.getUserID(), quizID, isCorrect)) {
+            response.getWriter().write("database error while updating user quiz");
+            return;
+        }
         
         //fetch new quiz
         prepareWhatToShow(request, response);
