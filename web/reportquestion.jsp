@@ -91,7 +91,7 @@
             </style>
     </head>
     <body>
-        <c:if test="${user.rollID eq 1}">
+        <c:if test="${user.rollID eq 1 || quiz eq ''}">
             <c:redirect url="accessdenied.html"/>
         </c:if>
         <div class="form-style-6">
@@ -99,10 +99,13 @@
         <form action="reportquestion" method="POST">
             <input type="hidden" value="${user.userID}" name="userID"/>
             <input type="hidden" value="${quiz.quizID}" name="quizID"/>
-            <input type="text" name="username" placeholder="Tên của bạn" />
+            <input type="text" name="username" value="${user.username}" placeholder="tên người dùng"/>
             Câu hỏi bạn đang báo cáo:
             <h3>${quiz.content}</h3>
-            <textarea name="field3" placeholder="Bạn phát hiện vấn đề gì với câu hỏi này"></textarea>
+            Đáp án đúng:
+            <h3>${answer.correctOpt}</h3>
+            <textarea name="field3" placeholder="Bạn phát hiện vấn đề gì với câu hỏi này"
+                      rows="20" cols="50"></textarea>
             <input type="submit" value="Gửi" />
         </form>
 </div>

@@ -43,9 +43,18 @@
                         </button>
                     </td>
                     <td>
+                        
                         <div class="dropdown">
                             <button class="dropbtn">
-                                ${user.username}
+                                <div>
+                                    <img src="${avatarPath}" 
+                                        id="avatar"
+                                        style="width:50px; height: 50px;"
+                                    />
+                                </div>
+                                <div>
+                                    ${user.username}
+                                </div>
                             </button>
                             <div class="dropdown-content">
                                 <a href="changepassword">Đổi mật khẩu</a>
@@ -125,7 +134,7 @@
             ${answer.correctOpt}
         </div>
         
-        <a href="reportquestion">Báo cáo câu hỏi có vấn đề</a>
+        <a href="reportquestion?quizID=${quiz.quizID}">Báo cáo câu hỏi có vấn đề</a>
     </form><!--end of wrapper class-->
     </center>
     <script src="js/study.js" type="text/javascript"></script>

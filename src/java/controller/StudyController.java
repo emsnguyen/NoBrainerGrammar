@@ -53,7 +53,7 @@ public class StudyController extends BaseAuthenticationController {
                 //insert to UserQuiz
                 uqDAO.insertNewUserQuiz(u.getUserID(), q.getQuizID());
             } else {
-                System.out.println("User Quiz existed, no need to insert a new one");
+//                System.out.println("User Quiz existed, no need to insert a new one");
             }
 
             //get Quiz and Answer ready
@@ -64,6 +64,25 @@ public class StudyController extends BaseAuthenticationController {
             request.setAttribute("quiz", q);
             request.setAttribute("answer", a);
             
+            //set avatar path 
+            String realPath = "C:\\Users\\emsnguyen\\Documents\\NetBeansProjects\\NoBrainerBeta\\web\\";
+            String jpg = realPath + "uploads\\" + u.getUserID() + ".jpg";
+            File fileJpg = new File(jpg);
+            String png = realPath + "uploads\\" + u.getUserID() + ".png";
+            File filePng = new File(png);
+            String jpeg = realPath + "uploads\\" + u.getUserID() + ".jpeg";
+            File fileJpeg = new File(jpeg);
+            System.out.println("fileJpg:" + jpg);
+            System.out.println("fileJpg.exists():" + fileJpg.exists());
+            if (fileJpg.exists()) {
+                request.setAttribute("avatarPath", "uploads\\" + u.getUserID() + ".jpg");
+            } else if (filePng.exists()) {
+                request.setAttribute("avatarPath", "uploads\\" + u.getUserID() + ".png");
+            } else if (fileJpeg.exists()) {
+                request.setAttribute("avatarPath", "uploads\\" + u.getUserID() + ".jpeg");
+            } else {
+                request.setAttribute("avatarPath", "images/nobrainer.jpg");
+            }
             //display in study.jsp
             request.getRequestDispatcher("study.jsp").forward(request, response);
         }

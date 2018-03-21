@@ -20,8 +20,7 @@ public class ChangePasswordController extends BaseAuthenticationController {
 
     @Override
     protected void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User u = (User) request.getSession().getAttribute("user");
-        request.setAttribute("username", u.getUsername());
+//        User u = (User) request.getSession().getAttribute("user");
         request.getRequestDispatcher("changepassword.jsp").forward(request, response);
     }
 

@@ -79,10 +79,10 @@ public class UserQuizDAO extends BaseDAO<IModel>{
                     "      ,[Level]\n" +
                     "      ,[CategoryID]\n" +
                     "  FROM [Quiz]\n" +
-                    "  WHERE (CategoryID = ? AND LEVEL = ?) \n" +
+                    "  WHERE CategoryID = ? AND LEVEL = ? \n" +
                     "  AND \n" +
                     "  (\n" +
-                    "	  QuizID NOT IN (SELECT QuizID FROM UserQuiz)\n" +
+                    "	  QuizID NOT IN (SELECT QuizID FROM UserQuiz WHERE UserID = ?)\n" +
                     "	  OR\n" +
                     "	  QuizID IN \n" +
                     "	  (SELECT [QuizID]\n" +
@@ -95,11 +95,15 @@ public class UserQuizDAO extends BaseDAO<IModel>{
                     "	   )\n" +
                     "  )\n" +
                     "  order by CHECKSUM(NEWID());"; //to get a random record
-            System.out.println("Query choose quiz to show next: " + query);
+//            System.out.println("Query choose quiz to show next: " + query);
+//            System.out.println("level: " + level);
+//            System.out.println("cateID: " + cateID);
+//            System.out.println("userID: " + u.getUserID());
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, cateID);
             ps.setInt(2, level);
             ps.setInt(3, u.getUserID());
+            ps.setInt(4, u.getUserID());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Quiz q = new Quiz();
@@ -172,7 +176,7 @@ public class UserQuizDAO extends BaseDAO<IModel>{
                 query = "UPDATE UserQuiz SET NoOfInCorrectAnswers "
                         + "= NoOfInCorrectAnswers+1 WHERE UserID = ? AND QuizID = ?";
             }
-            System.out.println("update no of answers: " + query);
+//            System.out.println("update no of answers: " + query);
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setInt(1, userID);
             ps.setInt(2, quizID);
