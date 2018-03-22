@@ -21,13 +21,13 @@ import model.UserInfo;
  *
  * @author emsnguyen
  */
-public class SignInController extends HttpServlet {
+public class LogInController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        response.getWriter().write("in doGet of signin controller");
-        request.getRequestDispatcher("signin.jsp").forward(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     @Override
