@@ -9,60 +9,7 @@
   <!-- CORE CSS-->
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-
-<style type="text/css">
-html,
-body {
-    height: 100%;
-}
-html {
-    display: table;
-    margin: auto;
-}
-body {
-    display: table-cell;
-    vertical-align: middle;
-}
-.margin {
-  margin: 0 !important;
-}
-input[type=submit] {
-
-background: #B9DFFF;
-
-color: #fff;
-
-border: 1px solid #eee;
-
-border-radius: 10px;
-
-box-shadow: 5px 5px 5px #eee;
-
-text-shadow:none;
-margin: auto;
-width: 50%;
-/*border: 3px solid green;*/
-padding: 10px;
-
-}
-
-input[type=submit]:hover {
-
-background: #016ABC;
-
-color: #fff;
-
-border: 1px solid #eee;
-
-border-radius: 20px;
-
-box-shadow: 5px 5px 5px #eee;
-
-text-shadow:none;
-
-}
-</style>
-  
+  <link href="css/login.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body class="red">
@@ -92,11 +39,14 @@ text-shadow:none;
           </div>
         </div>
         <div class="row">          
+            <p>${error}</p>
+        </div>
+<!--        <div class="row">          
           <div class="input-field col s12 m12 l12  login-text">
               <input type="checkbox" id="remember-me" />
               <label for="remember-me">Nhớ tài khoản của tôi</label>
           </div>
-        </div>
+        </div>-->
         <div class="row">
           <div class="input-field col s12">
               <center>

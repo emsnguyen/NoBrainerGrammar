@@ -7,62 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Đăng kí</title>
   <!-- CORE CSS-->
-  
+  <link href="css/register.css" rel="stylesheet" type="text/css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-
-<style type="text/css">
-html,
-body {
-    height: 100%;
-}
-html {
-    display: table;
-    margin: auto;
-}
-body {
-    display: table-cell;
-    vertical-align: middle;
-}
-.margin {
-  margin: 0 !important;
-}
-input[type=submit] {
-
-background: #B9DFFF;
-
-color: #fff;
-
-border: 1px solid #eee;
-
-border-radius: 10px;
-
-box-shadow: 5px 5px 5px #eee;
-
-text-shadow:none;
-margin: auto;
-width: 50%;
-/*border: 3px solid green;*/
-padding: 10px;
-
-}
-
-input[type=submit]:hover {
-
-background: #016ABC;
-
-color: #fff;
-
-border: 1px solid #eee;
-
-border-radius: 20px;
-
-box-shadow: 5px 5px 5px #eee;
-
-text-shadow:none;
-
-}
-</style>
-  
+  <style>
+    #preview {
+        max-width: 100px;
+        max-height: 100px;
+    }
+  </style>
 </head>
 
 <body class="blue">
@@ -70,7 +22,7 @@ text-shadow:none;
 
   <div id="login-page" class="row">
     <div class="col s12 z-depth-6 card-panel">
-        <form class="login-form" action="register" method="POST">
+        <form class="login-form" action="register" method="POST" enctype="multipart/form-data">
         <div class="row">
           <div class="input-field col s12 center">
             <img src="img/logo.jpg" alt="" class="responsive-img valign profile-image-login">
@@ -82,20 +34,23 @@ text-shadow:none;
             <i class="mdi-social-person-outline prefix"></i>
             <input id="username" type="text" class="validate" name="username" required>
             <label for="username" class="center-align">Tên đăng nhập</label>
+            <p>${wrongUsername}</p>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password" class="validate" required>
+            <input id="password" type="password" class="validate" required name="password">
             <label for="password">Mật khẩu</label>
+            <p>${wrongPassword}</p>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password-again" type="password" required>
+            <input id="password-again" type="password" required name="passwordcf">
             <label for="password-again">Nhập lại mật khẩu</label>
+            <p>${wrongPasswordCf}</p>
           </div>
         </div>
         
@@ -104,7 +59,15 @@ text-shadow:none;
               
             <!--<i class="mdi-action-lock-outline prefix"></i>-->
             <label for="avatar">Chọn ảnh đại diện để tải lên</label><br/><br/>
-            <input id="avatar" type="file" accept=".jpeg, .jpg, .png" name="avatar" required>
+            <input id="avatar" type="file" accept=".jpeg, .jpg, .png" name="avatar" required
+                   onchange="loadFile(event);">
+            <img id="preview"/>
+            <script>
+                var loadFile = function(event) {
+                    var output = document.getElementById("preview");
+                    output.src = URL.createObjectURL(event.target.files[0]);
+                }
+            </script>
           </div>
         </div>
         <div class="row">
@@ -116,11 +79,6 @@ text-shadow:none;
           </div>
         </div>
         <div class="row">
-<!--          <div class="input-field col s12">
-              <center>
-                  <input type="submit" class="btn waves-effect waves-light col s12" value="Đăng kí"/>
-              </center>
-          </div>-->
           <div class="input-field col s12">
             <p class="margin center medium-small sign-up">Đã có tài khoản? <a href="login">Đăng nhập</a></p>
           </div>

@@ -11,20 +11,19 @@ import java.util.Date;
  *
  * @author emsnguyen
  */
-public class UserInfo  implements IModel {
+public class UserInfo implements IModel {
     private User user;
     private String nickname;
     private String aboutMe;
     private Date birthDate;
-    private String imageFilePath;
     private String work;
     private String address;
-    private boolean isOnline;
+    private boolean online;
     private boolean preferMale;
     private int gender;
     public final static int GENDER_MALE = 1;
     public final static int GENDER_FEMALE = 0;
-
+    
     public User getUser() {
         return user;
     }
@@ -57,14 +56,6 @@ public class UserInfo  implements IModel {
         this.birthDate = birthDate;
     }
 
-    public String getImageFilePath() {
-        return imageFilePath;
-    }
-
-    public void setImageFilePath(String imageFilePath) {
-        this.imageFilePath = imageFilePath;
-    }
-
     public String getWork() {
         return work;
     }
@@ -81,14 +72,6 @@ public class UserInfo  implements IModel {
         this.address = address;
     }
 
-    public boolean isIsOnline() {
-        return isOnline;
-    }
-
-    public void setIsOnline(boolean isOnline) {
-        this.isOnline = isOnline;
-    }
-
     public boolean isPreferMale() {
         return preferMale;
     }
@@ -103,6 +86,14 @@ public class UserInfo  implements IModel {
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
     }
     
 }

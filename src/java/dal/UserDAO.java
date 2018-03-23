@@ -91,9 +91,9 @@ public class UserDAO extends BaseDAO<User>{
     public boolean update(User model) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public boolean insert(User model, UserInfo info) {
+    @Override
+    public boolean insert(User model) {
         try {
-            connection.setAutoCommit(false);
             //insert to User
             String query = "INSERT INTO [User]\n" +
                             "           ([username]\n" +
@@ -103,83 +103,16 @@ public class UserDAO extends BaseDAO<User>{
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, model.getUsername());
             ps.setString(2, model.getPassword());
-            ps.executeUpdate();
-            
-            //get UserID as new Identity
-            String getUserIDQuery = "SELECT SCOPE_IDENTITY() AS [UserID]";
-            ps = connection.prepareStatement(getUserIDQuery);
-            ResultSet rs = ps.executeQuery();
-            int userID = 0;
-            if (rs.next()) {
-                userID = rs.getInt("UserID");
+            if (ps.executeUpdate() > 0) {
+                return true;
             }
-            
-            
-            //insert to UserInfo
-            String insertToUserInfo = "INSERT INTO [UserInfo]\n" +
-                        "           ([userID]\n" +
-                        "           ,[nickname]\n" +
-                        "           ,[aboutMe]\n" +
-                        "           ,[birthDate]\n" +
-                        "           ,[imageFilePath]\n" +
-                        "           ,[work]\n" +
-                        "           ,[address]\n" +
-                        "           ,[preferMale]\n" +
-                        "           ,[isOnline])\n" +
-                        "     VALUES\n" +
-                        "           (?\n" +
-                        "           ,?\n" +
-                        "           ,?\n" +
-                        "           ,?\n" +
-                        "           ,?\n" +
-                        "		   ,?\n" +
-                        "           ,?\n" +
-                        "           ,?\n" +
-                        "           ,?)";
-            ps = connection.prepareStatement(query);
-            
-            ps.setInt(1, userID);
-            ps.setString(2, info.getNickname());
-            ps.setString(3, info.getAboutMe());
-            ps.setDate(4, (Date) info.getBirthDate());
-            ps.setString(5, info.getImageFilePath());
-            ps.setString(6, info.getWork());
-            ps.setString(7, info.getAddress());
-            ps.setBoolean(8, info.isPreferMale());
-            ps.executeUpdate();
-            connection.commit();
-            return true;
-            
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            try {
-                connection.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex1);
-            }
             return false;
         }
+        return false;
     }
     
-    @Override
-    public boolean insert(User model) {
-        try {
-            String query = "INSERT INTO [User]\n" +
-                            "           ([username]\n" +
-                            "           ,[password])\n" +
-                            "     VALUES\n" +
-                            "           (?, ?)";
-            PreparedStatement ps = connection.prepareStatement(query);
-            ps.setString(1, model.getUsername());
-            ps.setString(2, model.getPassword());
-            int executeUpdate = ps.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-
     @Override
     public User get(int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

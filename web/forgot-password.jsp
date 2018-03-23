@@ -28,9 +28,8 @@ body {
 }
 input[type=submit] {
 
-background: #B9DFFF;
-
 color: #fff;
+background: #016ABC;
 
 border: 1px solid #eee;
 
@@ -47,18 +46,12 @@ padding: 10px;
 }
 
 input[type=submit]:hover {
-
-background: #016ABC;
-
-color: #fff;
-
-border: 1px solid #eee;
-
-border-radius: 20px;
-
-box-shadow: 5px 5px 5px #eee;
-
-text-shadow:none;
+    background: #557cd6;
+    color: #fff;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px #eee;
+    text-shadow:none;
 
 }
 </style>
@@ -74,13 +67,13 @@ text-shadow:none;
         <div class="row">
           <div class="input-field col s12 center">
             <img src="img/logo.jpg" alt="" class="responsive-img valign profile-image-login">
-            <p class="center login-form-text">Quên mật khẩu</p>
+            <p class="center login-form-text">Nhập email để lấy lại mật khẩu</p>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <input class="validate" id="email" type="email">
+            <input class="validate" id="email" type="email" required>
             <label for="email" data-error="wrong" data-success="right" class="center-align">Email</label>
           </div>
         </div>
@@ -140,10 +133,6 @@ text-shadow:none;
   ga('send', 'pageview');
 
 </script><script src="//load.sumome.com/" data-sumo-site-id="1cf2c3d548b156a57050bff06ee37284c67d0884b086bebd8e957ca1c34e99a1" async="async"></script>
-
-
-
-
    <footer class="page-footer">
           <div class="footer-copyright">
             <div class="container">

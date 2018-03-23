@@ -29,8 +29,8 @@ Tinder Template by Miami
 .tlogo { width: 100px; margin: 0 auto; padding: 10px; }
 .tlogo img { width: 100px; }
 .tphoto {
-    width: 350px;
-    height: 350px;
+    max-width: 350px;
+    max-height: 350px;
     min-width: 350px;
     min-height: 350px;
     overflow: hidden;
@@ -137,4 +137,7 @@ Tinder Template by Miami
     text-transform: uppercase;
     font-family: 'Helvetica', sans-serif;
     font-style: italic;
+}
+i {
+    padding: 0 10px;
 }

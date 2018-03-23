@@ -1,0 +1,49 @@
+html,
+body {
+    height: 100%;
+}
+html {
+    display: table;
+    margin: auto;
+}
+body {
+    display: table-cell;
+    vertical-align: middle;
+}
+.margin {
+  margin: 0 !important;
+}
+input[type=submit] {
+
+        background: #016ABC;
+        color: #fff;
+
+        border: 1px solid #eee;
+
+        border-radius: 10px;
+
+        box-shadow: 5px 5px 5px #eee;
+
+        text-shadow:none;
+        margin: auto;
+        width: 50%;
+        /*border: 3px solid green;*/
+        padding: 10px;
+
+    }
+
+input[type=submit]:hover {
+
+    background: #428ff4;
+
+    color: #fff;
+
+    border: 1px solid #eee;
+
+    border-radius: 20px;
+
+    box-shadow: 5px 5px 5px #eee;
+
+    text-shadow:none;
+
+}

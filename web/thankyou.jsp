@@ -4,6 +4,7 @@
     Author     : emsnguyen
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,15 @@
             <p class="lead"><strong>Chúng tôi sẽ xem xét và gửi lại phản hồi cho bạn sớm nhất có thể</p>
             <hr>
             <p class="lead">
-              <a class="btn btn-primary btn-sm" href="home2.jsp" role="button">Trở về trang chủ</a>
+            <c:choose>
+                <c:when test="${user ne null}">
+                    <a class="btn btn-primary btn-sm" href="home2.jsp" role="button">Trở về trang chủ</a>
+                </c:when>
+                <c:otherwise>
+                    <a class="btn btn-primary btn-sm" href="index.html" role="button">Trở về trang chủ</a>
+                </c:otherwise>
+            </c:choose>
+              
             </p>
         </div>
     </center>

@@ -6,7 +6,7 @@
 package controller;
 
 import dal.UserDAO;
-import dal.UserInfoDAO;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -26,7 +26,6 @@ public class LogInController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.getWriter().write("in doGet of signin controller");
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
@@ -36,22 +35,34 @@ public class LogInController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         UserDAO userDB = new UserDAO();
-        
         User u = userDB.getUser(username, password);
-        if (u != null) {
-            UserInfoDAO infoDB = new UserInfoDAO();
-            String nickname;
-            nickname = infoDB.getNickname(u);
-            request.getSession().setAttribute("username", username);
-            request.getSession().setAttribute("nickname", nickname);
-            response.sendRedirect("trangchu2.jsp");
-        } else {
-            if (userDB.isUsernameExisted(username)) {
-                request.setAttribute("invalidPassword", "Wrong password");
-            } else {
-                request.setAttribute("invalidUsername", "Wrong username");
-            }
+        
+        if (u == null) {
+            request.setAttribute("error", "Sai tên đăng nhập hoặc mật khẩu");
             doGet(request, response);
+        } else {
+            //set avatar path 
+//            String realPath = "C:\\Users\\emsnguyen\\Documents\\NetBeansProjects\\TeenderWebApp\\web\\";
+//            System.out.println("real context path in login controller: " + getServletContext().getRealPath("/"));
+            String realPath = getServletContext().getRealPath("/");
+            String jpg = realPath + "uploads\\" + u.getUsername()+ ".jpg";
+            File fileJpg = new File(jpg);
+            String png = realPath + "uploads\\" + u.getUsername() + ".png";
+            File filePng = new File(png);
+            String jpeg = realPath + "uploads\\" + u.getUsername() + ".jpeg";
+            File fileJpeg = new File(jpeg);
+            if (fileJpg.exists()) {
+                request.getSession().setAttribute("avatarPath", "uploads/" + u.getUsername() + ".jpg");
+            } else if (filePng.exists()) {
+                request.getSession().setAttribute("avatarPath", "uploads/" + u.getUsername() + ".png");
+            } else if (fileJpeg.exists()) {
+                request.getSession().setAttribute("avatarPath", "uploads/" + u.getUsername() + ".jpeg");
+            } else {
+                request.getSession().setAttribute("avatarPath", "img/logo.jpg");
+            }
+            //set user attribute
+            request.getSession().setAttribute("user", u);
+            response.sendRedirect("home2.jsp");
         }
     }
 

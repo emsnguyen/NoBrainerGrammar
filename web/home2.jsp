@@ -19,23 +19,29 @@
     }
 </style>
 <body>
-
+<%@include file="precheck.jsp" %>
 <!-- Navbar -->
 <div class="w3-top">
   <div class="w3-bar w3-black w3-card">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="index.html" class="w3-bar-item w3-button w3-padding-large">Trang chủ</a>
-    <a href="findfriend" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Tìm bạn</a>
+    <a href="choose" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Tìm bạn</a>
     <a href="chat" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Tin nhắn</a>
-    <a href="sendfeedback" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Liên hệ</a>
+    <a href="#sendfeedback" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Liên hệ</a>
+    <img src="${avatarPath}" 
+                id="avatar"
+                alt="avatar"
+                style="max-width:50px; max-height: 50px;"
+                />
     <div class="w3-dropdown-hover w3-hide-small">
         <button class="w3-padding-large w3-button" title="More">
-            <img src="img/avatar.jpg" alt="avatar" id="avatar"/>
+            ${user.username}
         </button>     
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
         <a href="changepassword" class="w3-bar-item w3-button">Đổi mật khẩu</a>
         <a href="changeavatar" class="w3-bar-item w3-button">Đổi avatar</a>
         <a href="setting" class="w3-bar-item w3-button">Cài đặt tài khoản</a>
+        <a href="logout" class="w3-bar-item w3-button">Thoát</a>
       </div>
     </div>
     <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
@@ -135,7 +141,7 @@
 
   <!-- The Contact Section -->
   <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
-    <h2 class="w3-wide w3-center">Gửi feedback về cho dịch vụ của chúng tôi</h2>
+    <h2 class="w3-wide w3-center">Gửi feedback về dịch vụ của chúng tôi</h2>
     <!--<p class="w3-opacity w3-center"><i>Fan? Drop a note!</i></p>-->
     <div class="w3-row w3-padding-32">
       <div class="w3-col m6 w3-large w3-margin-bottom">
@@ -144,16 +150,18 @@
         <i class="fa fa-envelope" style="width:30px"> </i> Email: fpt.edu@gmail.com<br>
       </div>
       <div class="w3-col m6">
-        <form action="sendfeedback">
+        <form action="thankyou.jsp" id="sendfeedback">
           <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
             <div class="w3-half">
-              <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+              <input class="w3-input w3-border" type="text" placeholder="Name" required name="Tên">
             </div>
             <div class="w3-half">
               <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
             </div>
           </div>
-          <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+            <textarea class="w3-input w3-border" placeholder="Tin nhắn" required name="Message"
+                      rows="5">
+            </textarea>
           <button class="w3-button w3-black w3-section w3-right" type="submit">GỬI</button>
         </form>
       </div>
