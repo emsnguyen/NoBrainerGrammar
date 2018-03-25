@@ -97,15 +97,15 @@
         <div class="form-style-6">
         <h1>Báo cáo câu hỏi</h1>
         <form action="reportquestion" method="POST">
-            <input type="hidden" value="${user.userID}" name="userID"/>
+            <input type="hidden" value="${user.userID}" name="userID" />
             <input type="hidden" value="${quiz.quizID}" name="quizID"/>
-            <input type="text" name="username" value="${user.username}" placeholder="tên người dùng"/>
+            <input type="text" name="username" value="${user.username}" placeholder="tên người dùng" rquired/>
             Câu hỏi bạn đang báo cáo:
             <h3>${quiz.content}</h3>
             Đáp án đúng:
             <h3>${answer.correctOpt}</h3>
             <textarea name="problem" placeholder="Bạn phát hiện vấn đề gì với câu hỏi này"
-                      rows="20" cols="50"></textarea>
+                      rows="20" cols="50" required></textarea>
             <input type="submit" value="Gửi" />
         </form>
 </div>

@@ -5,65 +5,84 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Đăng nhập</title>
+  <title>Đăng kí</title>
   <!-- CORE CSS-->
-  
+  <link href="css/register.css" rel="stylesheet" type="text/css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-  <link href="css/login.css" rel="stylesheet" type="text/css"/>
+  <style>
+    #preview {
+        max-width: 100px;
+        max-height: 100px;
+    }
+  </style>
 </head>
 
-<body class="red">
+<body class="blue">
 
 
   <div id="login-page" class="row">
     <div class="col s12 z-depth-6 card-panel">
-        <form class="login-form" action="login" method="POST">
+        <form class="login-form" action="register" method="POST" enctype="multipart/form-data">
         <div class="row">
           <div class="input-field col s12 center">
             <img src="img/logo.jpg" alt="" class="responsive-img valign profile-image-login">
-            <p class="center login-form-text">Teender - Hẹn hò là chuyện nhỏ</p>
+            <p class="center login-form-text">Đăng kí</p>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <input class="validate" id="username" type="text" required name="username">
-            <label for="username" data-error="wrong" data-success="right" class="center-align">Tên đăng nhập</label>
+            <input id="username" type="text" class="validate" name="username" required>
+            <label for="username" class="center-align">Tên đăng nhập</label>
+            <p>${wrongUsername}</p>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password" name="password" required>
+            <input id="password" type="password" class="validate" required name="password">
             <label for="password">Mật khẩu</label>
+            <p>${wrongPassword}</p>
           </div>
         </div>
-        <div class="row">          
-            <p>${error}</p>
-        </div>
-<!--        <div class="row">          
-          <div class="input-field col s12 m12 l12  login-text">
-              <input type="checkbox" id="remember-me" />
-              <label for="remember-me">Nhớ tài khoản của tôi</label>
+        <div class="row margin">
+          <div class="input-field col s12">
+            <i class="mdi-action-lock-outline prefix"></i>
+            <input id="password-again" type="password" required name="passwordcf">
+            <label for="password-again">Nhập lại mật khẩu</label>
+            <p>${wrongPasswordCf}</p>
           </div>
-        </div>-->
+        </div>
+        
+        <div class="row margin">
+          <div class="input-field col s12">
+              
+            <!--<i class="mdi-action-lock-outline prefix"></i>-->
+            <label for="avatar">Chọn ảnh đại diện để tải lên</label><br/><br/>
+            <input id="avatar" type="file" accept=".jpeg, .jpg, .png" name="avatar" required
+                   onchange="loadFile(event);">
+            <img id="preview"/>
+            <script>
+                var loadFile = function(event) {
+                    var output = document.getElementById("preview");
+                    output.src = URL.createObjectURL(event.target.files[0]);
+                }
+            </script>
+          </div>
+        </div>
         <div class="row">
           <div class="input-field col s12">
               <center>
-                  <input type="submit" value='Đăng nhập'/>
+                  <input type="submit" value='Đăng kí'/>
               </center>
               
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6 m6 l6">
-            <p class="margin medium-small"><a href="register">Tạo tài khoản mới</a></p>
+          <div class="input-field col s12">
+            <p class="margin center medium-small sign-up">Đã có tài khoản? <a href="login">Đăng nhập</a></p>
           </div>
-          <div class="input-field col s6 m6 l6">
-              <p class="margin right-align medium-small"><a href="forgotpassword">Quên mật khẩu?</a></p>
-          </div>          
         </div>
-
       </form>
     </div>
   </div>
@@ -80,9 +99,17 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 </center>
+
+  <!-- ================================================
+    Scripts
+    ================================================ -->
+
+  <!-- jQuery Library -->
  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <!--materialize js-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+
+
 
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -98,7 +125,7 @@
 
    <footer class="page-footer">
           <div class="footer-copyright">
-              <div class="container" style="text-align:center">
+              <div class="container" style="text-align: center">
             ©2018 Teender
             <!--<a class="grey-text text-lighten-4 right" href="http://w3lessons.info">Karthikeyan K</a>-->
             </div>
