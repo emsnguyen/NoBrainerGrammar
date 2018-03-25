@@ -6,6 +6,7 @@
 package controller;
 
 import dal.AnswerDAO;
+import dal.FeedbackDAO;
 import dal.QuizDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Feedback;
 
 /**
  *
@@ -32,7 +34,21 @@ public class ReportQuestionController extends BaseAuthenticationController {
 
     @Override
     protected void handlePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+        int quizID = Integer.parseInt(request.getParameter("quizID"));
+        String problem = request.getParameter("problem");
+        String username = request.getParameter("username");
+        int senderID = Integer.parseInt(request.getParameter("userID"));
+        Feedback f = new Feedback();
+        f.setContent(problem);
+        f.setQuizID(quizID);
+        f.setSenderID(senderID);
+        f.setResolved(false);
+        FeedbackDAO fbDB = new FeedbackDAO();
+        if (fbDB.insert(f)) {
+            response.sendRedirect("thankyou.jsp");
+        } else {
+            response.getWriter().write("Error inserting feedback");
+        }
     }
 
 }

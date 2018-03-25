@@ -16,12 +16,13 @@
         <title>JSP Page</title>
         <link href="css/study.css" rel="stylesheet" type="text/css"/>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        
     </head>
     <body>
-    <c:if test="${user.rollID eq 1}">
+    <c:if test="${user.rollID eq 1 || quiz eq null}">
         <c:redirect url="accessdenied.html"/>
     </c:if>
-    <audio controls loop style="display:none" id='player'>
+        <audio controls loop style="display:none" id='player' autoplay='true'>
         <source src="audio/MatTroiCuaEmPianoCover-AnCoong-5405112.mp3" type="audio/mpeg">
         Your browser does not support the <code>audio</code> tag.
     </audio>
@@ -32,11 +33,10 @@
         <center>
             <table class="topnav"> 
                 <tr>
-                    <td>
-                        <button onclick="document.getElementById('player').muted=
-                                    !document.getElementById('player').muted">
+<!--                    <td>
+                        <button onclick="toggleAudio();">
                             Bật/ Tắt nhạc nền</button>
-                    </td>
+                    </td>-->
                     <td>
                         <button>
                             <a href="home2.jsp">Về trang chủ</a>
@@ -117,7 +117,7 @@
                                 ${answer.optD}
                             </div>
                         </div>
-                        <h4 class="explanation" style='display: none'>
+                        <h4 class="explanation" style='display: none; text-align: center'>
                             ${answer.explanation}
                         </h4>
                     </div>
@@ -134,7 +134,7 @@
             ${answer.correctOpt}
         </div>
         
-        <a href="reportquestion?quizID=${quiz.quizID}">Báo cáo câu hỏi có vấn đề</a>
+        <a href="reportquestion?quizID=${quiz.quizID}" style="text-align: center">Báo cáo câu hỏi có vấn đề</a>
     </form><!--end of wrapper class-->
     </center>
     <script src="js/study.js" type="text/javascript"></script>
@@ -149,6 +149,15 @@
                 document.querySelector("#next-question").click();
             }
         });
+        function toggleAudio() {
+            var audio = document.querySelector("#player");
+//            if (audio.duration > 0 && !audio.paused) {
+//                audio.pause();
+//            } else {
+//                audio.play();
+//            }
+            audio.muted = !audio.muted;
+        }
     </script>
     </body>
 </html>

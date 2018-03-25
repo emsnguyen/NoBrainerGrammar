@@ -104,7 +104,7 @@
             <h3>${quiz.content}</h3>
             Đáp án đúng:
             <h3>${answer.correctOpt}</h3>
-            <textarea name="field3" placeholder="Bạn phát hiện vấn đề gì với câu hỏi này"
+            <textarea name="problem" placeholder="Bạn phát hiện vấn đề gì với câu hỏi này"
                       rows="20" cols="50"></textarea>
             <input type="submit" value="Gửi" />
         </form>

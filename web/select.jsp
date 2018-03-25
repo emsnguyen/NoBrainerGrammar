@@ -8,14 +8,14 @@
     
     <link href="css/select.css" rel="stylesheet" type="text/css"/>
     <title>Chọn chế độ học</title>
+    
 </head>
 <body>
-    <audio controls loop='true' style='display:none;' id='player'>
+    <audio controls loop='true' style='display:none;' id='player' autoplay="true">
         <source src="audio/NoiNayCoAnhPianoCover-AnCoong-4780660.mp3" type="audio/mpeg">
         Your browser does not support the <code>audio</code> tag.
     </audio>
-    <button onclick="document.getElementById('player').muted=!document.getElementById('player').muted">
-                        Bật/ Tắt nhạc nền</button>
+    <button onclick="toggleAudio();">Bật/ Tắt nhạc nền</button>
 <h2>Chọn độ khó và loại câu hỏi</h2>
 <div class="container">
   <form action="study">
@@ -48,5 +48,16 @@
 </div>
 <!--<script src="js/select.js" type="text/javascript"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+<script>
+    function toggleAudio() {
+        var audio = document.querySelector('#player');
+        if (audio.duration > 0 && !audio.paused) {
+            audio.pause();
+        } else {
+            audio.play();
+        }
+        document.getElementById('player').muted=!document.getElementById('player').muted;
+    }
+</script>
 </body>
 </html>

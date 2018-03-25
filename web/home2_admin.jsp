@@ -17,9 +17,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <c:if test="${user.rollID ne 1}">
-            <c:redirect url="accessdenied.html"/>
-        </c:if>
+        <%@include file="precheck.jsp" %>
         <main>
             <header class="w3-container w3-red w3-center" style="padding:128px 16px">
                 <h1 class='elegantshadow'>Chào mừng admin trở lại với <br/>
@@ -57,11 +55,11 @@ and open the template in the editor.
                 <p class="footer-links">
                         <a href="#">Trang chủ</a>
                         ·
-                        <a href="terms.jsp">Điều khoản</a>
+                        <a href="terms.html">Điều khoản</a>
                         ·
-                        <a href="aboutus.jsp">Về chúng tôi</a>
+                        <a href="aboutus.html">Về chúng tôi</a>
                         ·
-                        <a href="faq.jsp">Các câu hỏi thường gặp</a>
+                        <a href="faq.html">Các câu hỏi thường gặp</a>
                 </p>
 
                 <p class="footer-company-name">No Brainer Grammar &copy; 2018</p>

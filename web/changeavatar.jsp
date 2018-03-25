@@ -54,7 +54,10 @@
               box-shadow: 0 5px #666;
               transform: translateY(4px);
             }
-            
+            #preview {
+                max-width: 100px;
+                max-height: 100px;
+            }
         </style>
     </head>
     <body>
@@ -72,7 +75,15 @@
                             <br/>
                             <input type="file" name="avatar" 
                                    id="avatar"
-                                   accept=".png, .jpg, .jpeg"/>
+                                   accept=".png, .jpg, .jpeg"
+                                   onchange="loadFile(event);"/>
+                            <img id="preview"/>
+                            <script>
+                                var loadFile = function(event) {
+                                    var output = document.getElementById("preview");
+                                    output.src = URL.createObjectURL(event.target.files[0]);
+                                }
+                            </script>
                         </div>
                         <div class="form-group">
                             <span class="error">${error}<br/></span>

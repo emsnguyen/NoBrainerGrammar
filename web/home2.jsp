@@ -39,13 +39,13 @@ and open the template in the editor.
                 <p class="footer-company-motto">Spare your brain for something more significant</p>
 
                 <p class="footer-links">
-                        <a href="#">Trang chủ</a>
+                        <a href="home.jsp">Trang chủ</a>
                         ·
-                        <a href="terms.jsp">Điều khoản</a>
+                        <a href="terms.html">Điều khoản</a>
                         ·
-                        <a href="aboutus.jsp">Về chúng tôi</a>
+                        <a href="aboutus.html">Về chúng tôi</a>
                         ·
-                        <a href="faq.jsp">Các câu hỏi thường gặp</a>
+                        <a href="faqs.html">Các câu hỏi thường gặp</a>
                 </p>
 
                 <p class="footer-company-name">No Brainer Grammar &copy; 2018</p>

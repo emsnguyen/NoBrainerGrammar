@@ -68,10 +68,10 @@ public class ChangeAvatarController extends BaseAuthenticationController {
                     //must be an uploaded file, save to disk
                     File fullFile = new File(item.getName());
                     System.out.println("item.name:" + item.getName());
-//                    String realPath = getServletContext().getRealPath("/");
-//                    System.out.println("real path: " + realPath);
-                    String realPath = "C:\\Users\\emsnguyen\\Documents\\NetBeansProjects\\NoBrainerBeta\\web\\uploads";
-                    System.out.println("real path later on: " + realPath);
+                    String realPath = getServletContext().getRealPath("/");
+                    System.out.println("real path: " + realPath);
+//                    realPath = "C:\\Users\\emsnguyen\\Documents\\NetBeansProjects\\NoBrainerBeta\\web\\uploads";
+//                    System.out.println("real path later on: " + realPath);
                     File savedFile = null;
                     File prevFile = null;
                     prevFile = new File(realPath, "" + name + ".png");

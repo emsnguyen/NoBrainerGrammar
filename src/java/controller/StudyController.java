@@ -65,7 +65,8 @@ public class StudyController extends BaseAuthenticationController {
             request.setAttribute("answer", a);
             
             //set avatar path 
-            String realPath = "C:\\Users\\emsnguyen\\Documents\\NetBeansProjects\\NoBrainerBeta\\web\\";
+//            String realPath = "C:\\Users\\emsnguyen\\Documents\\NetBeansProjects\\NoBrainerBeta\\web\\";
+            String realPath = getServletContext().getRealPath("/");
             String jpg = realPath + "uploads\\" + u.getUserID() + ".jpg";
             File fileJpg = new File(jpg);
             String png = realPath + "uploads\\" + u.getUserID() + ".png";
