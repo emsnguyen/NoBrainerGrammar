@@ -99,7 +99,7 @@
         <form action="reportquestion" method="POST">
             <input type="hidden" value="${user.userID}" name="userID" />
             <input type="hidden" value="${quiz.quizID}" name="quizID"/>
-            <input type="text" name="username" value="${user.username}" placeholder="tên người dùng" rquired/>
+            <input type="text" name="username" placeholder="tên người dùng" required/>
             Câu hỏi bạn đang báo cáo:
             <h3>${quiz.content}</h3>
             Đáp án đúng:

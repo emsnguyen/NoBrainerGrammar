@@ -8,10 +8,7 @@ import model.*;
 import dal.*;
 import javax.servlet.http.HttpSession;
 public class StudyController extends BaseAuthenticationController {
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    
     protected void preProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CategoryDAO catDB = new CategoryDAO();
         ArrayList<Category> cats = catDB.getAll();
@@ -44,6 +41,11 @@ public class StudyController extends BaseAuthenticationController {
         UserQuizDAO uqDAO = new UserQuizDAO();
         User u = (User) session.getAttribute("user");
         Quiz q = uqDAO.chooseQuizToShowNext(iCateID, iLevel, u);
+        if (u.getUserID() == 0) {
+            int userID = new UserDAO().getUserID(u.getUsername());
+            u.setUserID(userID);
+        }
+        request.getSession().setAttribute("user", u);
         if (q == null) {
             request.getSession().setAttribute("cateID", cateID);
             request.getSession().setAttribute("level", level);
@@ -52,6 +54,8 @@ public class StudyController extends BaseAuthenticationController {
             if (!uqDAO.isUserQuizExisted(u.getUserID(), q.getQuizID())) {
                 //insert to UserQuiz
                 uqDAO.insertNewUserQuiz(u.getUserID(), q.getQuizID());
+                System.out.println("userid: " + u.getUserID());
+                System.out.println("quizID: " + q.getQuizID());
             } else {
 //                System.out.println("User Quiz existed, no need to insert a new one");
             }
@@ -65,22 +69,19 @@ public class StudyController extends BaseAuthenticationController {
             request.setAttribute("answer", a);
             
             //set avatar path 
-//            String realPath = "C:\\Users\\emsnguyen\\Documents\\NetBeansProjects\\NoBrainerBeta\\web\\";
             String realPath = getServletContext().getRealPath("/");
-            String jpg = realPath + "uploads\\" + u.getUserID() + ".jpg";
+            String jpg = realPath + u.getUserID() + ".jpg";
             File fileJpg = new File(jpg);
-            String png = realPath + "uploads\\" + u.getUserID() + ".png";
+            String png = realPath + u.getUserID() + ".png";
             File filePng = new File(png);
-            String jpeg = realPath + "uploads\\" + u.getUserID() + ".jpeg";
+            String jpeg = realPath + u.getUserID() + ".jpeg";
             File fileJpeg = new File(jpeg);
-            System.out.println("fileJpg:" + jpg);
-            System.out.println("fileJpg.exists():" + fileJpg.exists());
             if (fileJpg.exists()) {
-                request.setAttribute("avatarPath", "uploads\\" + u.getUserID() + ".jpg");
+                request.setAttribute("avatarPath", u.getUserID() + ".jpg");
             } else if (filePng.exists()) {
-                request.setAttribute("avatarPath", "uploads\\" + u.getUserID() + ".png");
+                request.setAttribute("avatarPath", u.getUserID() + ".png");
             } else if (fileJpeg.exists()) {
-                request.setAttribute("avatarPath", "uploads\\" + u.getUserID() + ".jpeg");
+                request.setAttribute("avatarPath", u.getUserID() + ".jpeg");
             } else {
                 request.setAttribute("avatarPath", "images/nobrainer.jpg");
             }
@@ -94,6 +95,8 @@ public class StudyController extends BaseAuthenticationController {
         response.setContentType("text/html;charset=UTF-8");
         int newPoint = Integer.parseInt(request.getParameter("userpoint"));
         String isCorrect = request.getParameter("isCorrect");
+        String autoplay = request.getParameter("autoplay");
+        request.setAttribute("autoplay", autoplay);
         int quizID = Integer.parseInt(request.getParameter("quizID"));
         //insert old result to database
         UserDAO userDB = new UserDAO();

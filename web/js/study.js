@@ -12,7 +12,7 @@ var timeLeft = 10;
 var timer = document.querySelector('#timer');
 function countdown() {
     // Update the count down every 1 second
-    x = setInterval(function() {
+    x = setInterval(function () {
         timer.innerHTML = timeLeft;
         timeLeft--;
         // If the count down is over, write some text 
@@ -57,12 +57,12 @@ function checkCorrectAnswerWhenTimeOut() {
         }
     }
 }
-document.addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode === 13) {
-        document.querySelector("#next-question").click();
-    }
-});
+//document.addEventListener("keyup", function (event) {
+//    event.preventDefault();
+//    if (event.keyCode === 13) {
+//        document.querySelector("#next-question").click();
+//    }
+//});
 function checkUserChoice(choice) {
     clearInterval(x);
     checkCorrectAnswerWhenTimeOut();
@@ -97,7 +97,7 @@ function showExplanation() {
     explanation.style.display = "block";
 }
 function submitForm() {
-    document.querySelector('.form').submit(); 
+    document.querySelector('.form').submit();
 }
 $(document).ready(function () {
     var parent = $(".answer");
@@ -106,3 +106,21 @@ $(document).ready(function () {
         parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
     }
 });
+//these methods are repated here for debugging purposes only
+function cancelRead() {
+    var synth = window.speechSynthesis;
+    synth.cancel();
+}
+
+function toggleAudio() {
+    var audio = document.querySelector('#player');
+    var autoplay = document.querySelector("#autoplay");
+    if (audio.duration > 0 && !audio.paused) {
+        audio.pause();
+        autoplay.value = "autoplay";
+    } else {
+        audio.play();
+        autoplay.value = "";
+    }
+//    document.getElementById('player').muted = !document.getElementById('player').muted;
+}

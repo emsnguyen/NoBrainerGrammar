@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -17,7 +18,8 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <%@include file="precheck.jsp" %>
+        <%@include file="precheck_admin.jsp" %>
+        
         <main>
             <header class="w3-container w3-red w3-center" style="padding:128px 16px">
                 <h1 class='elegantshadow'>Chào mừng admin trở lại với <br/>

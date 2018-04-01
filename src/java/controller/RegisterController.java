@@ -9,7 +9,6 @@ import dal.UserDAO;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,17 +19,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User;
-import model.UserInfo;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUpload;
 import org.apache.commons.fileupload.FileUploadException;
 import utils.InputValidator;
-@MultipartConfig(fileSizeThreshold = 1024*1024*2,//2MB
-        maxFileSize = 1024*1024*10, //10MB
-        maxRequestSize = 1024*1024*50 //50MB
+
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2,//2MB
+        maxFileSize = 1024 * 1024 * 10, //10MB
+        maxRequestSize = 1024 * 1024 * 50 //50MB
 )
 public class RegisterController extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -65,7 +65,7 @@ public class RegisterController extends HttpServlet {
             try {
                 items = upload.parseRequest(request);
                 log("items: " + items.toString());
-            } catch(FileUploadException ex) {
+            } catch (FileUploadException ex) {
                 log("failed to parse request", ex);
             }
             Iterator iter = items.iterator();
@@ -86,15 +86,14 @@ public class RegisterController extends HttpServlet {
                     //must be an uploaded file, save to disk
                     File fullFile = new File(item.getName());
                     System.out.println("item.name:" + item.getName());
-                    System.out.println("real context path in register controller: " + getServletContext().getRealPath("/"));
-//                    System.out.println("real path: " + realPath);
-//                    String realPath = "C:\\Users\\emsnguyen\\Documents\\NetBeansProjects\\TeenderWebApp\\web\\uploads";
                     String realPath = getServletContext().getRealPath("/");
+                    System.out.println("real context path in register controller: " + realPath);
+
                     File savedFile = null;
-                    File prevFile = null;
+                    File prevFile;
                     prevFile = new File(realPath, "" + name + ".png");
                     if (prevFile.exists()) {
-                        if (prevFile.delete()){
+                        if (prevFile.delete()) {
                             log("old file deleted " + prevFile.getPath());
                         } else {
                             log("error deleting " + prevFile.getPath());
@@ -102,7 +101,7 @@ public class RegisterController extends HttpServlet {
                     }
                     prevFile = new File(realPath, "" + name + ".jpeg");
                     if (prevFile.exists()) {
-                        if (prevFile.delete()){
+                        if (prevFile.delete()) {
                             log("old file deleted " + prevFile.getPath());
                         } else {
                             log("error deleting " + prevFile.getPath());
@@ -110,13 +109,13 @@ public class RegisterController extends HttpServlet {
                     }
                     prevFile = new File(realPath, "" + name + ".jpg");
                     if (prevFile.exists()) {
-                        if (prevFile.delete()){
+                        if (prevFile.delete()) {
                             log("old file deleted " + prevFile.getPath());
                         } else {
                             log("error deleting " + prevFile.getPath());
                         }
                     }
-                    
+
                     if (item.getName().contains("png")) {
                         savedFile = new File(realPath, "" + name + ".png");
                     } else if (item.getName().contains("jpg")) {
@@ -146,36 +145,37 @@ public class RegisterController extends HttpServlet {
         } else if (userDB.isUsernameExisted(username.trim())) {
             request.setAttribute("wrongUsername", "Tên đăng nhập đã tồn tại!");
             request.getRequestDispatcher("register.jsp").forward(request, response);
-        }  else if (!passwordcf.equals(password)) {
+        } else if (!passwordcf.equals(password)) {
             request.setAttribute("wrongPasswordCf", "Mật khẩu không khớp");
             request.getRequestDispatcher("register.jsp").forward(request, response);
-        }
-        else {
+        } else {
             User u = new User();
             u.setUsername(username);
             u.setPassword(password);
             if (userDB.insert(u)) {
-                //set attribute user for current session
-                 //set avatar path 
+                //set avatar path 
                 System.out.println("real context path: " + getServletContext().getRealPath("/"));
-//                String realPath = "C:\\Users\\emsnguyen\\Documents\\NetBeansProjects\\TeenderWebApp\\web\\";
                 String realPath = getServletContext().getRealPath("/");
-                String jpg = realPath + "uploads\\" + u.getUsername()+ ".jpg";
+                String jpg = realPath + u.getUsername() + ".jpg";
                 File fileJpg = new File(jpg);
-                String png = realPath + "uploads\\" + u.getUsername() + ".png";
+                String png = realPath + u.getUsername() + ".png";
                 File filePng = new File(png);
-                String jpeg = realPath + "uploads\\" + u.getUsername() + ".jpeg";
+                String jpeg = realPath + u.getUsername() + ".jpeg";
                 File fileJpeg = new File(jpeg);
                 if (fileJpg.exists()) {
-                    request.getSession().setAttribute("avatarPath", "uploads/" + u.getUsername() + ".jpg");
+                    request.getSession().setAttribute("avatarPath", u.getUsername() + ".jpg");
                 } else if (filePng.exists()) {
-                    request.getSession().setAttribute("avatarPath", "uploads/" + u.getUsername() + ".png");
+                    request.getSession().setAttribute("avatarPath", u.getUsername() + ".png");
                 } else if (fileJpeg.exists()) {
-                    request.getSession().setAttribute("avatarPath", "uploads/" + u.getUsername() + ".jpeg");
+                    request.getSession().setAttribute("avatarPath", u.getUsername() + ".jpeg");
                 } else {
                     request.getSession().setAttribute("avatarPath", "img/logo.jpg");
                 }
                 //set user attribute
+                if (u.getUserID() == 0) {
+                    int userID = new UserDAO().getUserID(u.getUsername());
+                    u.setUserID(userID);
+                }
                 request.getSession().setAttribute("user", u);
                 response.sendRedirect("home2.jsp");
             } else {

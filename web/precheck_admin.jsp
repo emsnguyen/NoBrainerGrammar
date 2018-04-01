@@ -1,7 +1,6 @@
 <%-- 
-    Document   : precheck
-<<<<<<< HEAD
-    Created on : Mar 20, 2018, 3:59:57 PM
+    Document   : precheck_admin
+    Created on : Mar 27, 2018, 3:59:57 PM
     Author     : emsnguyen
 --%>
 
@@ -15,7 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <c:if test="${user eq null}">
+        <c:if test="${user.rollID ne 1}">
             <c:redirect url="accessdenied.html"/>
         </c:if>
     </body>

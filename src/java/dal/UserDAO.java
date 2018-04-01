@@ -158,4 +158,21 @@ public class UserDAO extends BaseDAO<User>{
         }
         return true;
     }
+
+    public int getUserID(String username) {
+        try {
+            String query = "SELECT [UserID]\n" +
+                    "  FROM [User]\n"
+                    + " WHERE Username = ?";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("UserID");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
 }

@@ -62,6 +62,7 @@ public class UserQuizDAO extends BaseDAO<IModel>{
             ps.setInt(2, quizID);
             ps.setInt(3, 0);
             ps.setInt(4, 0);
+            System.out.println("insert userquiz query: " + query);
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 return true;

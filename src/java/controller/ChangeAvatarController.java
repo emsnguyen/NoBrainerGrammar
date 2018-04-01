@@ -16,8 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.*;
-import model.User;
 import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.*;
 
@@ -33,12 +31,11 @@ public class ChangeAvatarController extends BaseAuthenticationController {
 
     @Override
     protected void handleGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        User u = (User) request.getSession().getAttribute("user");
         request.getRequestDispatcher("changeavatar.jsp").forward(request, response);
     }
     @Override
     protected void handlePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/plain;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         boolean isMultipart = FileUpload.isMultipartContent(request);
         log("content-length: " + request.getContentLength());
@@ -70,10 +67,8 @@ public class ChangeAvatarController extends BaseAuthenticationController {
                     System.out.println("item.name:" + item.getName());
                     String realPath = getServletContext().getRealPath("/");
                     System.out.println("real path: " + realPath);
-//                    realPath = "C:\\Users\\emsnguyen\\Documents\\NetBeansProjects\\NoBrainerBeta\\web\\uploads";
-//                    System.out.println("real path later on: " + realPath);
                     File savedFile = null;
-                    File prevFile = null;
+                    File prevFile;
                     prevFile = new File(realPath, "" + name + ".png");
                     if (prevFile.exists()) {
                         if (prevFile.delete()){

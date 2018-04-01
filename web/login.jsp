@@ -1,109 +1,39 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
   <title>Đăng nhập</title>
-  <!-- CORE CSS-->
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-  <link href="css/login.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+
+      <link rel="stylesheet" href="css/login.css">
 </head>
 
-<body class="red">
-
-
-  <div id="login-page" class="row">
-    <div class="col s12 z-depth-6 card-panel">
-        <form class="login-form" action="login" method="POST">
-        <div class="row">
-          <div class="input-field col s12 center">
-            <img src="img/logo.jpg" alt="" class="responsive-img valign profile-image-login">
-            <p class="center login-form-text">Teender - Hẹn hò là chuyện nhỏ</p>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="mdi-social-person-outline prefix"></i>
-            <input class="validate" id="username" type="text" required name="username">
-            <label for="username" data-error="wrong" data-success="right" class="center-align">Tên đăng nhập</label>
-          </div>
-        </div>
-        <div class="row margin">
-          <div class="input-field col s12">
-            <i class="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password" name="password" required>
-            <label for="password">Mật khẩu</label>
-          </div>
-        </div>
-        <div class="row">          
-            <p>${error}</p>
-        </div>
-<!--        <div class="row">          
-          <div class="input-field col s12 m12 l12  login-text">
-              <input type="checkbox" id="remember-me" />
-              <label for="remember-me">Nhớ tài khoản của tôi</label>
-          </div>
-        </div>-->
-        <div class="row">
-          <div class="input-field col s12">
-              <center>
-                  <input type="submit" value='Đăng nhập'/>
-              </center>
-              
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s6 m6 l6">
-            <p class="margin medium-small"><a href="register">Tạo tài khoản mới</a></p>
-          </div>
-          <div class="input-field col s6 m6 l6">
-              <p class="margin right-align medium-small"><a href="forgotpassword">Quên mật khẩu?</a></p>
-          </div>          
-        </div>
-
-      </form>
-    </div>
+<body>
+<h1 class='elegantshadow'>No-brainer Grammar</h1>  
+<div class="container">
+  <div class="info">
+    <h1>Đăng nhập</h1><span>Adapted with <i class="fa fa-heart"></i> by <a href="#">Emily Nguyen</a></span>
   </div>
+</div>
+<div class="form">
+  <form class="login-form" action="login" method="POST">
+      <input type="text" placeholder="tên đăng nhập" name="username" required="true"/>
+    <input type="password" placeholder="mật khẩu" name="password" required="true"/>
+    <p>${error}</p>
+    <button>Đăng nhập</button>
+    <p class="message">Bạn chưa có tài khoản?<a href="signup">Tạo tài khoản mới ngay</a></p>
+  </form>
+</div>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
+  
 
-  <center>
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- Post Page - Responsive -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:250px"
-     data-ad-client="ca-pub-5104998679826243"
-     data-ad-slot="3470684978"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</center>
- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <!--materialize js-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-27820211-3', 'auto');
-  ga('send', 'pageview');
-
-</script><script src="//load.sumome.com/" data-sumo-site-id="1cf2c3d548b156a57050bff06ee37284c67d0884b086bebd8e957ca1c34e99a1" async="async"></script>
-
-
-   <footer class="page-footer">
-          <div class="footer-copyright">
-              <div class="container" style="text-align:center">
-            ©2018 Teender
-            <!--<a class="grey-text text-lighten-4 right" href="http://w3lessons.info">Karthikeyan K</a>-->
-            </div>
-          </div>
-  </footer>
+    <script  src="js/login.js"></script>
 </body>
 
 </html>
